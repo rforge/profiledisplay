@@ -1,0 +1,5 @@
+scopy <- summaryRprof( lines="show", memory="both")
+rownames(scopy$by.self)[rownames(scopy$by.self)=="<no location>"] <- "\"no location\""
+rownames(scopy$by.total)[rownames(scopy$by.total)=="<no location>"] <- "\"no location\""
+rownames(scopy$by.line)[rownames(scopy$by.line)=="<no location>"] <- "\"no location\""
+print(scopy)
