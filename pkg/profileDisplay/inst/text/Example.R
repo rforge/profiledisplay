@@ -1,0 +1,13 @@
+set.seed(20130821)
+X <- runif(100000)
+Y <- runif(100000)
+#source(system.file("/text/Example 1.R",package="~/profiledisplay/pkg/profileDisplay"))
+#source(system.file("/text/Example 2.R",package="~/profiledisplay/pkg/profileDisplay"))
+#source(system.file("/text/Example 3.R",package="~/profiledisplay/pkg/profileDisplay"))
+#source(system.file("/text/Example 4.R",package="~/profiledisplay/pkg/profileDisplay"))
+source(system.file("text/Example 1.R",package="profileDisplay"))
+source(system.file("text/Example 2.R",package="profileDisplay"))
+source(system.file("text/Example 3.R",package="profileDisplay"))
+source(system.file("text/Example 4.R",package="profileDisplay"))
+#apply all four functions and source then throughout
+add1(X,Y) - add2(X,Y)
