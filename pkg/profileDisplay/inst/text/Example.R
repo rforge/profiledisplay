@@ -11,3 +11,4 @@ source(system.file("text/Example 3.R",package="profileDisplay"))
 source(system.file("text/Example 4.R",package="profileDisplay"))
 #apply all four functions and source then throughout
 add1(X,Y) - add2(X,Y)
+add3(X,Y) - add4(X,Y)
