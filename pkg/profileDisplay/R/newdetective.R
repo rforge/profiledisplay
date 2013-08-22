@@ -1,5 +1,5 @@
 newdetective <-
-function (x, value, ln, fn, names, int=12, datawant=FALSE,styleswant=TRUE) 
+function (x, value, ln, fn, names, rprofdata, type=profileType, int=12, datawant=FALSE,styleswant=TRUE) 
 {
    fn1 <- fn[grep(basename(x),fn)]
     ln1 <- ln[grep(basename(x),fn)]
@@ -16,7 +16,20 @@ function (x, value, ln, fn, names, int=12, datawant=FALSE,styleswant=TRUE)
     times[data$line1 == simpln[i]] <- simpvalue[i]
   }
   data$times <- times
-  classtimeintervals <- seq(range(times)[1], range(times)[2], length=(int-1))
+   if (length(names) >1){
+     if(type =="memory"){
+       classtimeintervals <- seq(range(s$by.line$mem.total)[1], range(s$by.line$mem.total)[2], length=(int-1))
+     }
+     if(type =="self"){
+       classtimeintervals <- seq(range(s$by.line$self.time)[1], range(s$by.line$self.time)[2], length=(int-1))
+     }
+     if(type =="total"){
+       classtimeintervals <- seq(range(s$by.line$total.time)[1], range(s$by.line$total.time)[2], length=(int-1))
+     }
+   } else {
+     classtimeintervals <- seq(range(times)[1], range(times)[2], length=(int-1))
+   }
+
   linesame <- data[data$line1 != data$line2,]
    intersection <- intersect(simpln,linesame$line1)
 
