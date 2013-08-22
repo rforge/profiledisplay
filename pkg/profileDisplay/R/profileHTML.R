@@ -216,11 +216,11 @@ namecode[length(namecode)+1] <- "<b><a href=\"summary.html\" target=\"list\">Sum
     fn1 <- fn[grep(names[i],fn)]
     ln1 <- ln[grep(names[i],fn)]
     value <- values[grep(names[i],fn)]
-    datavals <- newdetective(names[i],value=value, ln=ln1, fn=fn1, names=names, datawant=TRUE, styleswant=FALSE, int=int)[,c(1,10,11)]
+    datavals <- newdetective(names[i],value=value, ln=ln1, fn=fn1, names=names, rprofdata=s, type=profileType, datawant=TRUE, styleswant=FALSE, int=int)[,c(1,10,11)]
     datavals <- unique(datavals)
     timeintervals <- seq(0, range(value)[2], length=(int-1))
     
-    colourer<- highlight(output="profile.txt", parse.output=parse(names[i]), renderer=myrenderer, styles=detective(names[i], value=value, ln=ln1, fn=fn1, names=names, int=int), show_line_numbers=TRUE)
+    colourer<- highlight(output="profile.txt", parse.output=parse(names[i]), renderer=myrenderer, styles=detective(names[i], value=value, ln=ln1, fn=fn1, names=names, int=int, rprofdata=s, type=profileType), show_line_numbers=TRUE)
     measure <- linenumbers(colourer, int=int)
     measure[measure ==0] <- "none"
     colourer <- codecondenser(readLines("profile.txt"), int=int)
@@ -267,17 +267,28 @@ namecode[length(namecode)+1] <- "<b><a href=\"summary.html\" target=\"list\">Sum
     num <- sub(".*<span class=\"line\">","",num)
     num <- sub("  ", "", num)
     num1 <- as.numeric(num)
-    if (int>5){
-      alpha1 <- letters[(int-5):int]
-      alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
-      classmax <- alpha1[measure[(int-5):int] != "none"]
-      classmax <- c(classmax[length(classmax)-1],max(classmax))
-    } else{
-      alpha1 <- letters[int]
-      alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
-      classmax <- alpha1[measure[int] != "none"]
-      classmax <- c(classmax[length(classmax)-1],max(classmax))
+    numb <- measure[measure != "none"]
+        
+    if (length(numb) >3) {
+      if (int>5){
+        alpha1 <- letters[(int-5):int]
+        alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
+        classmax <- alpha1[measure[(int-5):int] != "none"]
+        classmax <- c(classmax[length(classmax)-1],max(classmax))
+      } else{
+        alpha1 <- letters[int]
+        alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
+        classmax <- alpha1[measure[int] != "none"]
+        classmax <- c(classmax[length(classmax)-1],max(classmax))
+      }
+    } else {
+      alpha1 <- paste("<span class=\"", letters[1:int], "\">", sep="")
+      classmax <- alpha1[match(numb,measure)[!is.na(match(numb,measure))]]
+      if (length(grep("<span class=\"a\">", classmax)) > 0) {
+        classmax <- classmax[-1]
+      }
     }
+    
     if (length(classmax) == 0){
       maxi <- paste("No lines")
     } else{
@@ -323,7 +334,7 @@ namecode[length(namecode)+1] <- "<b><a href=\"summary.html\" target=\"list\">Sum
       maxi <- paste(maxi, collapse="")
     }
 
-    namecode[grep(name[i],namecode)] <- paste(namecode[grep(name[i],namecode)],maxi, "<br>",sep="")
+    namecode[i] <- paste(namecode[i],maxi, "<br>",sep="")
     colourer[which(colourer == "</style>")] <- form[1]#paste(colourer[c(which(colourer == "</style>"),which(colourer == "</head>"),which(colourer == "<body>"))],collapse="") 
     colourer[which(colourer == "</head>")] <- form[2]
     colourer[which(colourer == "<body>")] <- form[3]
