@@ -27,7 +27,10 @@ To simplify the \code{\link{highlight}} code \code{\link{codecondenser}} puts a 
 
 }
 \examples{
-profileHTML(Rcode=system.file("/text/example.R", package = "profileDisplay"),profileType="self", savefile=file.path(tempdir(),"temp2")) #returns a HTML page in browser.
+profileHTML(Rcode=system.file("/text/Example1.R", package = "profileDisplay"),profileType="self", savefile=file.path(tempdir(),"temp")) #returns a HTML page in browser.  Notice heavy usage in the for loop.
 colours <- c("#FFA57F", "#FFA54E", "#FFA523", "#FFA500", "#EE9AEE", "#EE9AD8", "#EE9AAA", "#EE9A9A", "#EE9A77", "#EE9A49", "#EE9A21", "#EE9A00") #colours chosen by the user
-profileHTML(Rcode=system.file("/text/example.R", package = "profileDisplay"),profileType="self", colourdata= colours,savefile=file.path(tempdir(),"temp4")) #custom colour scheme for the HTML webpage
+profileHTML(Rcode=system.file("/text/Example2.R", package = "profileDisplay"),profileType="self", colourdata= colours,savefile=file.path(tempdir(),"temp1")) #custom colour scheme for the HTML webpage. Time changes now do to removal of addition to a vector.
+profileHTML(Rcode=system.file("/text/Example3.R", package = "profileDisplay"),profileType="total", savefile=file.path(tempdir(),"temp1")) #using total time #NW
+profileHTML(Rcode=system.file("/text/Example4.R", package = "profileDisplay"),profileType="memory",savefile=file.path(tempdir(),"temp1")) #memory usage tested #NW
+profileHTML(Rcode=system.file("/text/ExampleR.R", package = "profileDisplay"),profileType="self",savefile=file.path(tempdir(),"temp1")) #multiple files pulled
 }
