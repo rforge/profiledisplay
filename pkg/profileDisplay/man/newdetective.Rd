@@ -25,6 +25,12 @@ The parse data names produced by the file.
   \item{names}{
 The total list of parse data names produced by the file.
 }
+  \item{rprofdata}{
+The data frame produced by summaryRprof is applied.
+}
+  \item{type}{
+The type of profiling is asked for; self, total or memory.
+}
   \item{int}{
 The number of intervals needed to be produced in order to produce the correct number of classes to sort the times.  Must be at least 3.
 }
@@ -46,7 +52,7 @@ Name
 \code{\link{simple_detective}}
 }
 \examples{
-	source(system.file("/text/example.R", package = "profileDisplay"))
+	source(system.file("/text/exampleold.R", package = "profileDisplay"))
 summary <- summaryRprof(lines="show")
 loc <- rownames(summary$by.line)
   values <- summary$by.line$self.time
