@@ -115,17 +115,7 @@ function(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colour
 
   names <- levels(factor(fn))
 
-  if (length(loc) < 1) {
-    if (is.null(Rprof)){
-      htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(Rcode), sep=""), local=TRUE)
-    }
-    if (is.null(Rcode)){
-      htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(Rprof), sep=""), local=TRUE)
-    }
-    
-    browseURL(url="summary.html")
-    return(paste("The runtime for all lines is insignificantly small."))
-  }
+
   
   test <- c("<no location>", "Tools.R")
   for (i in 1:length(test)){
@@ -148,8 +138,17 @@ function(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colour
     noloc <- which(name == "txt")
     name <- name[-c(space,noloc)]
   }
-  
-  if (!is.null(Rprof) | length(names) > 1){
+  if (length(loc) < 1 | length(names) <1 ) {
+    if (is.null(Rprof)){
+      htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(Rcode), sep=""), local=TRUE)
+    }
+    if (is.null(Rcode)){
+      htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(Rprof), sep=""), local=TRUE)
+    }
+    
+    browseURL(url="summary.html")
+    return(paste("The runtime for all lines is insignificantly small."))
+  }
     total.time <- numeric()
     for (i in 1:length(names)){
       total.time[i] <- sum(values[which(fn == names[i])])
@@ -157,7 +156,6 @@ function(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colour
     names <- names[rev(order(total.time))]
     name <- name[rev(order(total.time))]
     total.time <- total.time[rev(order(total.time))]
-  }
  
   namecode <- character()
   if (length(names) == 1){
@@ -283,7 +281,7 @@ namecode[length(namecode)+1] <- "<b><a href=\"summary.html\" target=\"list\">Sum
       }
     } else {
       alpha1 <- paste("<span class=\"", letters[1:int], "\">", sep="")
-      classmax <- alpha1[match(numb,measure)[!is.na(match(numb,measure))]]
+      classmax <- alpha1[which(measure != "none")]
       if (length(grep("<span class=\"a\">", classmax)) > 0) {
         classmax <- classmax[-1]
       }
