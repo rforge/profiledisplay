@@ -51,13 +51,3 @@ Name
 \seealso{
 \code{\link{simple_detective}}
 }
-\examples{
-	source(system.file("/text/exampleold.R", package = "profileDisplay"))
-summary <- summaryRprof(lines="show")
-loc <- rownames(summary$by.line)
-  values <- summary$by.line$self.time
-  fn <- sub("#.*","",loc)
-  ln <- sub(".*#","",loc)
-newdetective(system.file("/text/example.R", package = "profileDisplay"), values, ln,fn, names)
-newdetective(system.file("/text/example.R", package = "profileDisplay"), values, ln,fn, names, datawant=TRUE, styleswant=FALSE)
-}
