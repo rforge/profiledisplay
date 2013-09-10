@@ -10,9 +10,7 @@ Main function of the package.  Highlights the lines of code based on runtime in 
 profileHTML(Rprof = "Rprof.out", Rcode = NULL, detective =
                  newdetective, int = 12, colourdata =
                  rgb(colorRamp(c("#FFFFD4", "#FED98E"), space =
-                 "Lab")(0:11/11), maxColorValue = 255), profileType =
-                 c("self", "total", "memory"), openbrowser = TRUE,
-                 savefile=tempdir())
+                 "Lab")(0:11/11), maxColorValue = 255), profileType = c("self", "total", "memory"), openbrowser = TRUE, savefile=tempdir())
 }
 \arguments{
   \item{Rprof}{
