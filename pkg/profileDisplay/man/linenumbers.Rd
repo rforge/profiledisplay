@@ -30,7 +30,3 @@ Function works within the \code{\link{profileHTML}} function.
 \seealso{
 \code{\link{newdetective}}, \code{\link{profileHTML}}
 }
-\examples{
-linenumbers(readLines(system.file("/text/temp.txt", package = "profileDisplay"))) # two lists formed from highlight data with newdetective
-linenumbers(readLines(system.file("/text/temp.txt", package = "profileDisplay")), int=5) #ifferent number of intervals
-}
