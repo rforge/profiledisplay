@@ -32,3 +32,8 @@ Function works within the \code{\link{profileHTML}} function.
 \seealso{
 \code{\link{newdetective}}, \code{\link{profileHTML}}
 }
+\examples{
+  profileDisplay:::colouring() #produces a CSS file with default colours for each class
+  profileDisplay:::colouring(int=6) #CSS file with 6 colours
+colours <- c("#FFA57F", "#FFA54E", "#FFA523", "#FFA500", "#EE9AEE", "#EE9AD8", "#EE9AAA", "#EE9A9A", "#EE9A77", "#EE9A49", "#EE9A21", "#EE9A00") #colours chosen by the user
+  profileDisplay:::colouring(colours) #CSS file now with colours chosen by the user}
