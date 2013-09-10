@@ -12,7 +12,7 @@ profileHTML(Rprof = "Rprof.out", Rcode = NULL, detective =
                  rgb(colorRamp(c("#FFFFD4", "#FED98E"), space =
                  "Lab")(0:11/11), maxColorValue = 255), profileType =
                  c("self", "total", "memory"), openbrowser = TRUE,
-                 savefile = NULL)
+                 savefile=tempdir())
 }
 \arguments{
   \item{Rprof}{
