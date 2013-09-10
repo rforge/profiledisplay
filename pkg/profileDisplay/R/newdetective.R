@@ -1,5 +1,5 @@
 newdetective <-
-function (x, value, ln, fn, names, rprofdata, type=profileType, int=12, datawant=FALSE,styleswant=TRUE) 
+function (x, value, ln, fn, names, rprofdata, type, int=12, datawant=FALSE,styleswant=TRUE) 
 {
    fn1 <- fn[grep(basename(x),fn)]
     ln1 <- ln[grep(basename(x),fn)]
