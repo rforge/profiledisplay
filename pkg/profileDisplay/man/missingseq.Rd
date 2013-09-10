@@ -21,7 +21,3 @@ Returns a numeric vector of integers not included in the sequence between the ra
 \author{
 Name
 }
-\examples{
-x <- c(6,2,9,3,7)
-missingseq(x) #range is from 2 to 9, thus returning 4,5,8
-}
