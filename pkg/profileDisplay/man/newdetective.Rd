@@ -7,7 +7,7 @@ New detective
 This detective uses parse data and with summaryRprof self time data by line to make its investigation.
 }
 \usage{
-newdetective(x, value, ln, fn, names, int=12, datawant=FALSE,styleswant=TRUE)
+newdetective(x, value, ln, fn, names, rprofdata, type, int=12, datawant=FALSE,styleswant=TRUE)
 }
 \arguments{
   \item{x}{
