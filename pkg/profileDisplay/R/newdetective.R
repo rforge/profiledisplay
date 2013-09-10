@@ -18,13 +18,13 @@ function (x, value, ln, fn, names, rprofdata, type=profileType, int=12, datawant
   data$times <- times
    if (length(names) >1){
      if(type =="memory"){
-       classtimeintervals <- seq(range(s$by.line$mem.total)[1], range(s$by.line$mem.total)[2], length=(int-1))
+       classtimeintervals <- seq(range(rprofdata$by.line$mem.total)[1], range(rprofdata$by.line$mem.total)[2], length=(int-1))
      }
      if(type =="self"){
-       classtimeintervals <- seq(range(s$by.line$self.time)[1], range(s$by.line$self.time)[2], length=(int-1))
+       classtimeintervals <- seq(range(rprofdata$by.line$self.time)[1], range(rprofdata$by.line$self.time)[2], length=(int-1))
      }
      if(type =="total"){
-       classtimeintervals <- seq(range(s$by.line$total.time)[1], range(s$by.line$total.time)[2], length=(int-1))
+       classtimeintervals <- seq(range(rprofdata$by.line$total.time)[1], range(rprofdata$by.line$total.time)[2], length=(int-1))
      }
    } else {
      classtimeintervals <- seq(range(times)[1], range(times)[2], length=(int-1))
