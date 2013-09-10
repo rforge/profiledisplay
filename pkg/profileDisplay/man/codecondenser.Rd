@@ -30,9 +30,3 @@ Function works within the \code{\link{profileHTML}} function.
 \seealso{
  \code{\link{profileHTML}},  \code{\link{highlight}}
 }
-\examples{
-system.file("/text/temp.txt", package = "profileDisplay")
-codecondenser(readLines(system.file("/text/temp.txt", package = "profileDisplay"))) #simplifies the HTML so class is per line, not per token
-system.file("/text/temp.txt", package = "profileDisplay")
-codecondenser(readLines(system.file("/text/temp.txt", package = "profileDisplay")), int=5) #different number of intervals
-}
