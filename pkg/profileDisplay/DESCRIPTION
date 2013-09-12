@@ -8,4 +8,3 @@ Maintainer: Who to complain to <yourfault@somewhere.net>
 Description: Function to highlight lines of R code based on runtime in the Rprof function.
 License: GPL-2 | GPL-3
 Depends: highlight, prettyR
-Packaged: 2013-06-19 18:24:35 UTC; murdoch
