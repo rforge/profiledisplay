@@ -7,10 +7,10 @@ Highlights the tokens
 Main function of the package.  Highlights the lines of code based on runtime in \code{\link{newdetective}} classes and presents the data in an HTML page.
 }
 \usage{
-profileHTML(Rprof = "Rprof.out", Rcode = NULL, detective =
-                 newdetective, int = 12, colourdata =
-                 rgb(colorRamp(c("#FFFFD4", "#FED98E"), space =
-                 "Lab")(0:11/11), maxColorValue = 255), profileType = c("self", "total", "memory"), openbrowser = TRUE, savefile=tempdir())
+profileHTML(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colourdata=
+             rgb(colorRamp(c("#FFFFD4" ,"#FED98E"), space="Lab")(0:11/11), maxColorValue=255), 
+           profileType=c("self","total", "memory"), openbrowser=TRUE, savefile=tempdir(),
+           visual="all")
 }
 \arguments{
   \item{Rprof}{
@@ -36,6 +36,9 @@ Option to open the HTML page in a browser window.
 }
   \item{savefile}{
 Option to save the HTML file to a folder directory.
+}
+  \item{visual}{
+Chooses which information to display in HTML.  Default is set to all to show all infomation but using "code" only displays the code, "legend" only displays the legend, "info" only displays the first setence information, and "summary" returns only the summaryRprof data.
 }
 }
 \value{
