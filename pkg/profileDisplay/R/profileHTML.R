@@ -2,7 +2,7 @@ profileHTML <-
   function(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colourdata=
              rgb(colorRamp(c("#FFFFD4" ,"#FED98E"), space="Lab")(0:11/11), maxColorValue=255), 
            profileType=c("self","total", "memory"), openbrowser=TRUE, savefile=tempdir(),
-           visual="all") {
+           visual="all", bar=FALSE) {
     if (int != length(colourdata)){int <- min(int, length(colourdata))}
     if (int <2){return(warning("At least 3 intervals must be produced."))}
     profileType <- match.arg(profileType)
@@ -247,6 +247,12 @@ profileHTML <-
       form1 <- readLines("format1.txt")
       colourer <- colourer[-((length(colourer)-2):length(colourer))]
       colourer <- c(colourer,form1)
+      if (visual == "all" | visual == "code") {
+        if (bar == TRUE){
+          colourer <- barview(int,colourer)
+        }
+      }
+
       writeLines(colourer, paste(name[i],".html", sep=""))
     }
     
