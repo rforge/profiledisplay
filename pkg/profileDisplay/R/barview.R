@@ -22,3 +22,4 @@ bar <- format(bar)
   }
 return(htmldata)
 }
+
