@@ -1,11 +1,11 @@
 profileHTML <-
   function(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colourdata=
              rgb(colorRamp(c("#FFFFD4" ,"#FED98E"), space="Lab")(0:11/11), maxColorValue=255), 
-           profileType=c("self","total", "memory"), openbrowser=TRUE, savefile=tempdir(),
-           visual="all", bar=FALSE) {
-    if (int != length(colourdata)){int <- min(int, length(colourdata))}
-    if (int <2){return(warning("At least 3 intervals must be produced."))}
-    profileType <- match.arg(profileType)
+           profileType=c("self","total", "memory"),savefile=tempdir()
+           , visual="all", bar=FALSE) {
+   ## if (int != length(colourdata)){int <- min(int, length(colourdata))}
+ ##   if (int <2){return(warning("At least 3 intervals must be produced."))}
+  ##  profileType <- match.arg(profileType)
     oldwd <- getwd()
     
     if (savefile != tempdir()){
@@ -18,12 +18,12 @@ profileHTML <-
       fname <- unlist(strsplit(basename(Rprof), "[.]"))[1]
       path <- file.path(newpath,paste("profileHTML", unlist(strsplit(basename(Rprof), "[.]"))[1]))
       file <- basename(Rprof)
-      s <- profiler(Rprof=Rprof, Rcode=NULL, newpath, profileType=profileType)
+      s <- profilerOLD(Rprof=Rprof, Rcode=NULL, newpath, profileType=profileType)
     } else {
       fname <- unlist(strsplit(basename(Rcode), "[.]"))[1]
       path <- file.path(newpath,paste("profileHTML", unlist(strsplit(basename(Rcode), "[.]"))[1]))
       file <- basename(Rcode)
-      s <-  profiler(Rprof=NULL, Rcode=Rcode, newpath, profileType=profileType)
+      s <-  profilerOLD(Rprof=NULL , Rcode=Rcode, newpath, profileType=profileType)
     }
     setwd(path)
     on.exit(setwd(oldwd))
@@ -95,6 +95,7 @@ profileHTML <-
       noloc <- which(name == "txt")
       name <- name[-c(space,noloc)]
     }
+    ######
     if (length(loc) < 1 | length(names) <1 ) {
       if (is.null(Rprof)){
         htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(Rcode), sep=""), local=TRUE)
@@ -106,6 +107,7 @@ profileHTML <-
       browseURL(url="summary.html")
       return(paste("The runtime for all lines is insignificantly small."))
     }
+    ######
     total.time <- numeric()
     for (i in 1:length(names)){
       total.time[i] <- sum(values[which(fn == names[i])])
@@ -275,7 +277,7 @@ profileHTML <-
     files <- list.files()
     keep <- c(files[grepl("html", files)], files[grepl("out", files)])
     unlink(files[-match(keep, files)], recursive=TRUE)
-    if (openbrowser){
+
       if (visual == "table" | visual == "info") {
         if (sum(file == names) == 0) {
           browseURL(url=file.path(getwd(), paste(name[1], ".html", sep="" )))
@@ -286,6 +288,6 @@ profileHTML <-
         browseURL(url=file.path(getwd(), "Rprof.html"))
       }
       
-    }
+
     setwd(oldwd)
     }
