@@ -30,15 +30,15 @@ The profileDisplay package can help with each of these steps.
 
 For now, we'll use a simple script:
 ```{r script}
+library(profileDisplay)
 cat(readLines("script.R"), sep="\n")
 ```
 
 
 ## Running the script
 
-```{r running}
-filename <- tempfile()
-Rprof(filename = filename, line.profiling = TRUE)
+```{r running,eval=FALSE}
+Rprof(filename = "scriptRprof.out", line.profiling = TRUE)
 for (j in 1:50)
   source("script.R", keep.source = TRUE)
 Rprof(NULL)
@@ -49,9 +49,13 @@ Rprof(NULL)
 Based on the summaryRprof output
 
 ```{r}
-summaryRprof(filename = filename, lines = "show")
+summaryRprof(filename = "scriptRprof.out", lines = "show")
 ```
 
 we can classify the lines according to run-time on each.
 
 ## Displaying the lines
+
+```{r}
+profileHTML("scriptRprof.out")
+```
