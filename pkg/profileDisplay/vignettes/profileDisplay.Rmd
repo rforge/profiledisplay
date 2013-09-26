@@ -1,0 +1,35 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{The profileDisplay package}
+-->
+
+## The profileDisplay package
+
+This vignette is a short illustration of the profileDisplay package.
+This package is designed to produce a visual display of profiling data.
+There are functions to display the source code using different colors
+for different amounts of run-time or memory use, or just to indicate
+which lines have been executed for coverage analysis of tests.
+
+There are also functions to create scripts from the examples in a 
+package, and to run scripts multiple times to generate sufficiently
+informative profile data.
+
+## A Simple Example
+
+The steps involved in producing a profile display are:
+
+1. Produce the script.
+2. Run the script while profiling is active.
+3. Classify the source lines according to some aspect of the profile data.
+4. Display the source lines in an HTML page.
+
+The profileDisplay package can help with each of these steps.
+
+1. Producing the script
+
+2. Running the script
+
+3. Classifying the source lines
+
+4. Displaying the lines

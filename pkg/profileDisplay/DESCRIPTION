@@ -2,9 +2,10 @@ Package: profileDisplay
 Type: Package
 Title: Highlights tokens based on runtime
 Version: 1.0
-Date: 2013-05-31
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: Function to highlight lines of R code based on runtime in the Rprof function.
+Author: Alexander Tsang, Duncan Murdoch, Yuying Xie
+Maintainer: Duncan Murdoch <murdoch@stats.uwo.ca>
+Description: Function to highlight lines of R code based on profile data
 License: GPL-2 | GPL-3
 Depends: highlight, prettyR
+Suggests: knitr
+VignetteBuilder: knitr
