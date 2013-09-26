@@ -3,7 +3,7 @@
 %\VignetteIndexEntry{The profileDisplay package}
 -->
 
-## The profileDisplay package
+# The profileDisplay package
 
 This vignette is a short illustration of the profileDisplay package.
 This package is designed to produce a visual display of profiling data.
@@ -15,7 +15,7 @@ There are also functions to create scripts from the examples in a
 package, and to run scripts multiple times to generate sufficiently
 informative profile data.
 
-## A Simple Example
+# A Simple Example
 
 The steps involved in producing a profile display are:
 
@@ -26,10 +26,32 @@ The steps involved in producing a profile display are:
 
 The profileDisplay package can help with each of these steps.
 
-1. Producing the script
+## Producing the script
 
-2. Running the script
+For now, we'll use a simple script:
+```{r script}
+cat(readLines("script.R"), sep="\n")
+```
 
-3. Classifying the source lines
 
-4. Displaying the lines
+## Running the script
+
+```{r running}
+filename <- tempfile()
+Rprof(filename = filename, line.profiling = TRUE)
+for (j in 1:50)
+  source("script.R", keep.source = TRUE)
+Rprof(NULL)
+```
+
+## Classifying the source lines
+
+Based on the summaryRprof output
+
+```{r}
+summaryRprof(filename = filename, lines = "show")
+```
+
+we can classify the lines according to run-time on each.
+
+## Displaying the lines
