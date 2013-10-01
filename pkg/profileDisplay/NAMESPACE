@@ -1,1 +1,1 @@
-export(profileHTML)
+export(profileHTML, getLines)
