@@ -1,1 +1,1 @@
-export(profileHTML, getLines)
+exportPattern("^[[:alpha:]]+")
