@@ -7,7 +7,7 @@ findblocks<-function(s=NULL,filename=NULL){
   ln <- sub(".*#","",loc)#line number
   ln <-ln[which(fn==basename(filename))]#sth about tool.R
   fn <-fn[which(fn==basename(filename))]
-  p<-parse(file =newR)
+  p<-parse(file = newR)
   d<-getParseData(p)
   ln1<-sort(as.numeric(ln[which(ln != "")]))
   ln2<-ln1
