@@ -1,10 +1,13 @@
-findblocks<-function(s=NULL,filename=NULL,newR=NULL){
+findblocks<-function(s=NULL,filename=NULL){
+  src<-getLines(filename,pkg)
+  newR<-file.path(getwd(),filename)
+  writeLines(src[[filename]],con=newR)
   loc <- rownames(s$by.line)
   fn <- sub("#.*","",loc)#file name
   ln <- sub(".*#","",loc)#line number
   ln <-ln[which(fn==basename(filename))]#sth about tool.R
   fn <-fn[which(fn==basename(filename))]
-  p<-parse(file =newR )
+  p<-parse(file =newR)
   d<-getParseData(p)
   ln1<-sort(as.numeric(ln[which(ln != "")]))
   ln2<-ln1
