@@ -1,5 +1,5 @@
 findblocks<-function(s=NULL,filename=NULL){
-  src<-getLines(filename,pkg)
+  src<-getLines(filename,pkg=pkg)
   newR<-file.path(getwd(),filename)
   writeLines(src[[filename]],con=newR)
   loc <- rownames(s$by.line)
