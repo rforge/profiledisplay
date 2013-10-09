@@ -52,7 +52,7 @@ Name
 \code{\link{simple_detective}}
 }
 \examples{
-	source(system.file("/text/exampleold.R", package = "profileDisplay"))
+	source(system.file("text/exampleold.R", package = "profileDisplay"))
 summary <- summaryRprof(lines="show")
 loc <- rownames(summary$by.line)
   values <- summary$by.line$self.time
