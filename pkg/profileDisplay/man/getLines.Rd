@@ -44,3 +44,4 @@ Duncan Murdoch
 \dontrun{
 getLines("getLines.R", pkg = "profileDisplay")
 }
+}
