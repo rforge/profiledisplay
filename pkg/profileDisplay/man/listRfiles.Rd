@@ -30,7 +30,7 @@ Yuying Xie
 library(profileDisplay)
 tools:::.createExdotR("tables", system.file(package="tables"))
 lines<-readLines("tables-Ex.R")
-lines<-lines[!grepl("quit\\('no'\\)",lines)]
+lines<-lines[!grepl("quit\\\('no'\\\)",lines)]
 writeLines(lines,con="tables-Ex.R")
 Rprof(line.profiling=TRUE)
 source("tables-Ex.R")
