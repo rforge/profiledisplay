@@ -1,5 +1,7 @@
 createEx<-function(pkg=NULL){
-  path <- normalizePath(getwd(), winslash="/", mustWork=FALSE)
+  find.package(pkg)
+  oldwd<-getwd()
+  path <- normalizePath(oldwd, winslash="/", mustWork=FALSE)
   path<-file.path(path,paste(pkg,"-examples",sep=""))
   if (file.exists(path)){ unlink(file.path(path), recursive=TRUE) }
   suppressWarnings(dir.create(path))
@@ -9,5 +11,6 @@ createEx<-function(pkg=NULL){
   lines<-readLines(newpath)
   lines<-lines[!grepl("quit\\('no'\\)",lines)]
   writeLines(lines,con=newpath)
+  setwd(oldwd)
   return(newpath)
 }
