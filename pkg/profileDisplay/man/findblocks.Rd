@@ -5,7 +5,7 @@
 Finds and classifies the blocks of the codes.
 }
 \description{
-This function finds the blocks of the codes and based classifies those blocks into differernt floors on the \code{\link{parse}} and \code{\link{getParseData}}.
+This function finds the blocks of the codes and classifies those blocks into differernt floors based on the \code{\link{parse}} and \code{\link{getParseData}}.
 }
 \usage{
 findblocks(s = NULL, filename = NULL)
@@ -25,7 +25,7 @@ Default is NULL, the input should be the name of the file we need to get the par
 Returns a list of vectors which includes related information about blocks, parsedata and lines of codes that have been executed.
 }
 \note{
-Function works within the \code{\link{profileClassifier}}
+Function works within the \code{\link{profileClassifier}}.
 }
 \author{
 Yuying Xie
@@ -37,12 +37,12 @@ Yuying Xie
 library(profileDisplay)
 tools:::.createExdotR("tables", system.file(package="tables"))
 lines<-readLines("tables-Ex.R")
-lines<-lines[!grepl("quit\\('no'\\)",lines)]
+lines<-lines[!grepl("quit\\\('no'\\\)",lines)]
 writeLines(lines,con="tables-Ex.R")
-pkg<-"tables"
 Rprof(line.profiling=TRUE)
 source("tables-Ex.R")
 Rprof(NULL)
+pkg<-"tables"
 s <- summaryRprof("Rprof.out", lines="show");filename<-"tabular.R";newR<-getwd()
 findblocks(s,filename)
 }
