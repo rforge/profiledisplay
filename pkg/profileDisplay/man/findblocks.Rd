@@ -18,9 +18,6 @@ Default argument is NULL, the input should be the \code{\link{summaryRprof}} dat
 Default is NULL, the input should be the name of the file we need to get the parse data and display the file.
 }
 }
-\details{
-
-}
 \value{
 Returns a list of vectors which includes related information about blocks, parsedata and lines of codes that have been executed.
 }
