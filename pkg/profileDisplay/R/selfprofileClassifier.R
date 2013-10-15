@@ -31,7 +31,7 @@ selfprofileClassifier <- function(prof="Rprof.out",filename="all",legend=TRUE,co
   fn <- sub("#.*","",loc)
   ln <- sub(".*#","",loc)
   names <- levels(factor(fn))
-  name <- unlist(strsplit(names, "[.]"))
+  name <- unlist(strsplit(names, "[.]"))[-grep("R",unlist(strsplit(names, "[.]")))]
   
   if (length(name %in% c("R", "txt") >0)) {
     space <- which(name == "R")
@@ -43,15 +43,18 @@ selfprofileClassifier <- function(prof="Rprof.out",filename="all",legend=TRUE,co
     total.time[i] <- sum(values[which(fn == names[i])])
   }
   colourdata <- colouring()$colourdata
+  total.sampling.time <- sum(values)
   names <- names[rev(order(total.time))]
   name <- name[rev(order(total.time))]
   total.time <- total.time[rev(order(total.time))]
-  test <-list()
+  other <- list(total.time=total.time,total.sampling.time=total.sampling.time)
+  test <-list(other=other)
   for (l in 1:length(names)){
      data <- cbind(newdetective(names[l],values,ln,fn,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)], 
                    colourdata[match(newdetective(names[l],values,ln,fn,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,11],letters)])
      names(data)[4] <- "colours"
      test[[names[l]]] <- data
   }
+  test
 return(test)
 }
