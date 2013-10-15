@@ -1,2 +1,0 @@
-install.packages(profileDisplay, repos=NULL, type="source")
-install.packages("profileDisplay", repos=NULL, type="source")
