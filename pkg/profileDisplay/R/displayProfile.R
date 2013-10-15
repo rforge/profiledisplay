@@ -81,5 +81,9 @@ col <- colouring()$col
     if (show == "total"){
       htmlize(system.file("text/summary.txt", package="profileDisplay"), "summary", HTMLdir=getwd(), title=paste("Summary Rprof Data for ",basename(prof), sep=""), local=TRUE)
     }
-
-}
+  for ( i in 1:length(names)){
+    colourer <- character()
+    colourer<- highlight(output="profile.txt", parse.output=parse(names[i]), renderer=myrenderer, styles=data[[i]]$styles, show_line_numbers=TRUE)
+    
+  }
+  }
