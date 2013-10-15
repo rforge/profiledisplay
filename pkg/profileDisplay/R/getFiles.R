@@ -1,4 +1,4 @@
-getFiles <- function(Rcode, dir = ".",pkg=NULL) {
+getFiles <- function(Rprof="Rprof.out", dir = ".",pkg=NULL) {
   path <- paste("Files for profiling",basename(Rcode),sep=" ")
   dir.create(path)
   if(!is.null(pkg)){
