@@ -1,8 +1,13 @@
-getFiles <- function(Rprof="Rprof.out", dir = ".",pkg=NULL) {
-  path <- paste("Files for profiling",basename(Rprof),sep=" ")
-  dir.create(path)
+getFiles <- function(Rcode, dir = ".",pkg=NULL) {
+  name <- Rcode[1]
+  path <- paste("Files for profiling",basename(name),sep=" ")
+  if (file.exists(path) == TRUE){
+    stop("Folder already exists.")
+  }
+  suppressWarnings(dir.create(path))
+
   if(!is.null(pkg)){
-    writeLines(getLines(Rcode,pkg=pkg)[[1]],con=file.path(path,Rcode))
+    writeLines(getLines(Rprof,pkg=pkg)[[1]],con=file.path(path,Rprof))
     dir <- path
   }
   if(dir=="."){
@@ -18,5 +23,4 @@ getFiles <- function(Rprof="Rprof.out", dir = ".",pkg=NULL) {
     writeLines(getLines(d[i],dir=dir)[[1]],con=basename(d[i]))
   }
   setwd(oldwd)
-  return(s)
 }
