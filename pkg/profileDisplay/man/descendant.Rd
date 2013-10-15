@@ -39,7 +39,7 @@ Eratosthenes <- function(n) {#create fucntion
     for (i in seq(2, n)) {
       if (any(sieve == i)) {
         primes <- c(primes, i)
-        sieve <- sieve[(sieve %% i) != 0]
+        sieve <- sieve[(sieve \%\% i) != 0]
       }
     }
     return(primes)
@@ -50,5 +50,5 @@ Eratosthenes <- function(n) {#create fucntion
 dump("Eratosthenes")#save it into dumpdata.R
 p<-parse("dumpdata.R")
 d<-getParseData(p)#create the parse data
-d[d$id %in% descendant(data = d, id = sample(d$id,1)),"text"]
+d[d$id \%in\% descendant(data = d, id = sample(d$id,1)),"text"]
 }
