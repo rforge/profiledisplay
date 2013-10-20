@@ -1,4 +1,4 @@
-displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","executed"), data,
+displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","executed"), lines, data,
                            savefile=tempdir()) {
   dir <- dirname(prof)
     if(dir=="."){
@@ -7,14 +7,15 @@ displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","exe
   otherdata <- data$other
   data <- data[-1]
   s <- summaryRprof(prof, lines="show", memory="both")
+  loc <- rownames(s$by.line)
   rowvals <- rownames(s$by.line)
-  doc <- names(data)
-  nums <- list()
-  q <- numeric()
-  for (i in 1:length(doc)) {
-    nums[[i]] <- grep(doc[i],rowvals)
+  k <- numeric()
+  for(i in 1:length(names(lines))){
+    j <-  grep(names(lines)[i],loc) 
+    k <- c(k,j)
   }
- h <- s$by.line[as.numeric(unlist(nums)),]
+  
+  h <- s$by.line[k,]
   
   if (savefile != tempdir()){
     savefile <- normalizePath(savefile, winslash="/", mustWork=FALSE)
@@ -25,12 +26,12 @@ displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","exe
   path <- file.path(newpath,paste("profileHTML", unlist(strsplit(basename(prof), "[.]"))[1]))
   suppressWarnings(dir.create(path))
   file <- basename(prof)
-  suppressWarnings( writeLines(readLines("/Users/apt_imac/profiling.txt"), con=file.path(path,"Rprof.out")))
+  suppressWarnings( writeLines(readLines(file.path(dir,prof)), con=file.path(path,"Rprof.out")))
   oldwd <- getwd()
   setwd(path)
   on.exit(setwd(oldwd))
 
-    getprofFiles(basename(prof), dir=dir)
+  #  getprofFiles(basename(prof), dir=dir)
   
 col <- colouring()$col
     
@@ -83,7 +84,7 @@ col <- colouring()$col
     }
   for ( i in 1:length(names)){
     colourer <- character()
-    colourer<- highlight(output="profile.txt", parse.output=parse(names[i]), renderer=myrenderer, styles=data[[i]]$styles, show_line_numbers=TRUE)
+    colourer<- highlight(output="profile.txt", parse.output=parse(text=lines[[i]]), renderer=myrenderer, styles=data[[i]]$styles, show_line_numbers=TRUE)
     
   }
   }
