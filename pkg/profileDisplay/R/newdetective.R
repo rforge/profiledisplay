@@ -1,9 +1,10 @@
 newdetective <-
 function (x, value, ln, fn, names, rprofdata, type, int=12, datawant=FALSE,styleswant=TRUE) 
 {
-   fn1 <- fn[grep(basename(x),fn)]
-    ln1 <- ln[grep(basename(x),fn)]
-    value1 <- value[grep(basename(x),fn)]
+  filename <- names(x)
+   fn1 <- fn[grep(basename(filename),fn)]
+    ln1 <- ln[grep(basename(filename),fn)]
+    value1 <- value[grep(basename(filename),fn)]
    
    simpfn <- fn1[which(value1 != 0)]
    simpln <- ln1[which(value1 != 0)]
