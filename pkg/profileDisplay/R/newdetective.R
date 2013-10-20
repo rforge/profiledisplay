@@ -10,7 +10,7 @@ function (x, value, ln, fn, names, rprofdata, type, int=12, datawant=FALSE,style
    simpln <- ln1[which(value1 != 0)]
    simpvalue <- value1[which(value1 != 0)]
    
-  parse.output <- parse(text=x)
+  parse.output <- parse(text=x[[1]])
   data <- getParseData(parse.output)
   times <- numeric(nrow(data ))
   for (i in 1:length(simpvalue)) {
