@@ -1,4 +1,5 @@
-selfprofileClassifier <- function(prof="Rprof.out",filename="all",legend=TRUE,colourdata,...) { #how to directly input these results if function is within display profile?  
+selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input
+                                  ,colourdata,...) {  
   s <- summaryRprof(prof, lines="show")
   total.sampling.time <- s$sampling.time
   loc <- rownames(s$by.line)
