@@ -5,23 +5,23 @@ classdeterminer <- function(colourer,measure,int, name,profileType, datavals) {
   num <- sub(".*<span class=\"line\">","",num)
   num <- sub("  ", "", num)
   num1 <- as.numeric(num)
-  numb <- measure[measure != "none"]
-  
+  numb <- measure[measure != 0]
+  datavals <- unique(datavals)
   if (length(numb) >3) {
     if (int>5){
       alpha1 <- letters[(int-5):int]
       alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
-      classmax <- alpha1[measure[(int-5):int] != "none"]
+      classmax <- alpha1[measure[(int-5):int] != 0]
       classmax <- c(classmax[length(classmax)-1],max(classmax))
     } else{
       alpha1 <- letters[int]
       alpha1 <- paste("<span class=\"", alpha1, "\">", sep="")
-      classmax <- alpha1[measure[int] != "none"]
+      classmax <- alpha1[measure[int] != 0]
       classmax <- c(classmax[length(classmax)-1],max(classmax))
     }
   } else {
     alpha1 <- paste("<span class=\"", letters[1:int], "\">", sep="")
-    classmax <- alpha1[which(measure != "none")]
+    classmax <- alpha1[which(measure != 0)]
     if (length(grep("<span class=\"a\">", classmax)) > 0) {
       classmax <- classmax[-1]
     }
