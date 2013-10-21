@@ -1,4 +1,6 @@
-selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input
+selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input 
+                                  # prof <- "profiling.txt"
+                                  #filename <- getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac")
                                   ,colourdata,...) {  
   s <- summaryRprof(prof, lines="show")
   total.sampling.time <- s$sampling.time
@@ -6,27 +8,13 @@ selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input
   fn <- sub("#.*","",loc)
   interval <- s$sample.interval
   names <- levels(factor(fn))
-  if (charmatch("all",filename,nomatch=0)>0) {
-    filename <- names
+  k <- numeric()
+  for(i in 1:length(names(filename))){
+ j <-  grep(names(filename)[i],loc) 
+ k <- c(k,j)
   }
-  if (charmatch("<no location>",names,nomatch=0)>0) {
-    names <- names[-grep("<no location>",names)]
-  }
-  if (charmatch("<no location>",filename,nomatch=0)>0) {
-    filename <- filename[-grep("<no location>",filename)]
-  }
-  doc <- basename(filename)
-  nums <- numeric()
-  numbs <- numeric()
-  q <- numeric()
-  for (i in 1:length(doc)) {
-    nums[i] <- grep(doc[i],names)
-  }
-  for (j in 1:length(names[nums])) {
-    numbs  <- grep(doc[j],loc)
-    q <- c(q,numbs)
-  }
-  h <- s$by.line[q,]
+
+  h <- s$by.line[k,]
   values <- h$self.time
   loc <- rownames(h)
   fn <- sub("#.*","",loc)
@@ -45,14 +33,18 @@ selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input
   }
   colourdata <- colouring()$colourdata
   total.sampling.time <- sum(values)
-  names <- names[rev(order(total.time))]
-  name <- name[rev(order(total.time))]
-  total.time <- total.time[rev(order(total.time))]
+  oldorder <- order(total.time, decreasing=TRUE)
+ # names <- names[oldorder]
+#  name <- name[oldorder]
+#  total.time <- total.time[oldorder]
   other <- list(total.time=total.time,total.sampling.time=total.sampling.time)
   test <-list(other=other)
-  for (l in 1:length(names)){
-     data <- cbind(newdetective(names[l],values,ln,fn,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)], 
-                   colourdata[match(newdetective(names[l],values,ln,fn,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,11],letters)])
+  for (l in oldorder){
+    fn1 <- fn[grep(names[l],fn)]
+    ln1 <- ln[grep(names[l],fn)]
+    value <- values[grep(names[l],fn)]
+     data <- cbind(newdetective(filename[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)], 
+                   colourdata[match(newdetective(filename[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,11],letters)])
      names(data)[4] <- "colours"
      test[[names[l]]] <- data
   }
