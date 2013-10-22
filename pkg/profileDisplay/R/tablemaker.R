@@ -25,16 +25,18 @@ tablemaker <- function(lines,values,int=12, timeintervals, profileType, measure)
     measurer[1] <- sum(tot) - sum(measurer)
     
     measurer[measurer ==0] <- "none"
-  #  for(l in 2:length(timeintervals)){
-  #    table[l] <- paste("<tr><TD class=\"", alpha[l], "\"> </TD><td>", ftimeintervals[l-1], " to ",ftimeintervals[l],"</td><td>", measurer[l], "</td></tr>", sep="")
-  #  }
-  #  table[1] <- paste("<tr><TD class=\"", alpha[1], "\"> </TD><td>", ftimeintervals[1], "</td><td>", measurer[1], "</td></tr>", sep="")
-  #  table[int] <- paste("<tr><TD class=\"", alpha[int], "\"> </TD><td>", ftimeintervals[int-1],"</td><td>", measurer[int], "</td></tr>", sep="")
-  #  if(length(grep("none", table)) > 0) {
- #     table <- table[-grep("none",table)]
- #   }
- #   table <- paste(table, collapse="")
-#  } else{
+    ######
+    for(l in 2:length(timeintervals)){
+      table[l] <- paste("<tr><TD class=\"", alpha[l], "\"> </TD><td>", ftimeintervals[l-1], " to ",ftimeintervals[l],"</td><td>", measurer[l], "</td></tr>", sep="")
+    }
+    table[1] <- paste("<tr><TD class=\"", alpha[1], "\"> </TD><td>", ftimeintervals[1], "</td><td>", measurer[1], "</td></tr>", sep="")
+    table[int] <- paste("<tr><TD class=\"", alpha[int], "\"> </TD><td>", ftimeintervals[int-1],"</td><td>", measurer[int], "</td></tr>", sep="")
+    if(length(grep("none", table)) > 0) {
+      table <- table[-grep("none",table)]
+    }
+    table <- paste(table, collapse="")
+  } else{
+    ######
     for(l in 2:length(timeintervals)){
       table[l] <- paste("<tr><TD class=\"", alpha[l], "\"> </TD><td>", ftimeintervals[l-1], " to ",ftimeintervals[l],"</td><td>", measurer[l], "</td></tr>", sep="")
     }
@@ -45,7 +47,7 @@ tablemaker <- function(lines,values,int=12, timeintervals, profileType, measure)
       table <- table[-grep("none",table)]
     }
     table <- paste(table, collapse="")
- # }
+  } ##
   if(profileType == "memory"){
     formatcode3 <- paste("</pre>\n<a name=\"Legend\"></a><h1><i>Legend</i></h1></div><div><table border=\"2\" style=\"background-color:white;\">
                              
