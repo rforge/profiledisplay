@@ -28,5 +28,6 @@ namecode <- function(show,names,otherdata){
     }
   }
 }
+  namecode[length(namecode)+1] <- "<b><a href=\"summary.html\" target=\"list\">Summary Rprof Data</i></b>"
   return(namecode)
 }
