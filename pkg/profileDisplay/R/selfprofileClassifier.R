@@ -37,15 +37,13 @@ selfprofileClassifier <- function(prof="Rprof.out",filename #get lines input
  # names <- names[oldorder]
 #  name <- name[oldorder]
 #  total.time <- total.time[oldorder]
-  other <- list(total.time=total.time,total.sampling.time=total.sampling.time)
+  other <- list(total.time=total.time,total.sampling.time=total.sampling.time, fn=fn,ln=ln,values=values,colourdata=colourdata)
   test <-list(other=other)
   for (l in oldorder){
     fn1 <- fn[grep(names[l],fn)]
     ln1 <- ln[grep(names[l],fn)]
     value <- values[grep(names[l],fn)]
-     data <- cbind(newdetective(filename[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)], 
-                   colourdata[match(newdetective(filename[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,11],letters)])
-     names(data)[4] <- "colours"
+     data <- cbind(newdetective(filename[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)])
      test[[names[l]]] <- data
   }
   test
