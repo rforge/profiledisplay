@@ -1,0 +1,10 @@
+Slevelclass<-function(uline=NULL,i=NULL){
+  uline$level[1]<-i
+  if(nrow(uline[uline$line2>uline$line2[1],])==0){
+    result<-uline[1,]
+    }else{
+      result<-uline[uline$level!=0,]
+    result<-rbind(result,Slevelclass(uline[uline$line2>uline$line2[1],],i))
+  }
+  return(result)
+}
