@@ -4,7 +4,7 @@ blocklines<-function(block){
     l2<-block[block$parent==block[1,"parent"] & block$token=="'('","line1"]
     l3<-block[block$parent==block[1,"parent"] & block$token=="')'","line1"]
     ub<-max(block$line2)
-  }else if(token$token[1]=="FOR"){
+  }else if(block$token[1]=="FOR"){
     l1<-block[1,"line1"]
     l2<-block[block$parent==block[block$parent==block[1,"parent"] & block$token=="forcond","id"] & block$token=="'('","line1"]
     l3<-block[block$parent==block[block$parent==block[1,"parent"] & block$token=="forcond","id"] & block$token=="')'","line1"]
