@@ -50,5 +50,5 @@ Eratosthenes <- function(n) {#create fucntion
 dump("Eratosthenes")#save it into dumpdata.R
 p<-parse("dumpdata.R")
 d<-getParseData(p)#create the parse data
-d[d$id \%in\% descendant(data = d, id = sample(d$id,1)),"text"]
+d[d$id \%in\% descendant(data = d, id = sample(d$id,1)),]#165 is the id of the block of for loop
 }
