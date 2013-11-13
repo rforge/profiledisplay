@@ -75,7 +75,7 @@ summaryHTML(prof,show)
   measure <- linenumbers(colourer, int=int)
     colourer <- codecondenser(readLines("profile.txt"), int=int)
 
-    form <- headerHTML(show,names,otherdata,interval,i)
+    form <- headerHTML(show,names,otherdata,interval,i,col)
     
     maxi <- classdeterminer(colourer,measure,int, name[i],show, data[[i]]) #change to generic
     namecode[i] <- paste(namecode[i],maxi, "<br>",sep="")
@@ -94,10 +94,15 @@ summaryHTML(prof,show)
   files <- list.files()
   keep <- c(files[grepl("html", files)], files[grepl("out", files)])
   unlink(files[-match(keep, files)], recursive=TRUE)
-  if (sum(prof == names) == 0) {
-    browseURL(url=file.path(getwd(), paste(name[1], ".html", sep="" )))
-} else{
-  browseURL(url=file.path(getwd(), "Rprof.html"))
-}
+  if (length(names)>1){
+    browseURL(url=file.path(getwd(), "Rprof.html"))
+  }else {
+    if (sum(prof == names) == 0) {
+      browseURL(url=file.path(getwd(), paste(name[1], ".html", sep="" )))
+    } else{
+      browseURL(url=file.path(getwd(), "Rprof.html"))
+    }
+  }
+  
   setwd(oldwd)
   }
