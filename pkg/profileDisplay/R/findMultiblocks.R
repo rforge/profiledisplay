@@ -1,13 +1,5 @@
 findMultiblocks<-function(s=NULL,d,filename=NULL){
-  #if(!is.null(pkg)){
-    #src<-getLines(filename,pkg=pkg)
-    #p<-parse(text = src[[filename]])
-    #d<-getParseData(p)
-  #}else{
-   # p<-parse(file=filename)
-    #d<-getParseData(p)
-  #}
-  class<-rep("4",length(src[[filename]]))
+  class<-rep("4",max(d$line1))
   loc <- rownames(s$by.line)
   fn <- sub("#.*","",loc)#file name
   ln <- sub(".*#","",loc)#line number
