@@ -10,4 +10,6 @@ for (i in 1:length(alpha)) {
   color <- paste(colour, collapse="")
   color <- paste(color,".line{color:black;}", collapse="")
  capture.output(cat(paste(color,collapse=""), "\n"), file="test.css")
+  col <- colourdata[int]
+  return(list(col=col,colourdata=colourdata))
 }
