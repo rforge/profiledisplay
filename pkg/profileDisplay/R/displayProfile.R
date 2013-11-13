@@ -1,11 +1,14 @@
-displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","executed"), lines, data,int=12,
+displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","executed"), 
+                           lines=getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac"), 
+                           data=selfprofileClassifier(prof,lines),
+                           otherdata= profiledata(prof,lines),
+                           int=12,
                           savefile=tempdir()) {
   dir <- dirname(prof)
     if(dir=="."){
       dir <- getwd()
     }
-  otherdata <- data$other
-  data <- data[-1]
+  
   s <- summaryRprof(prof, lines="show", memory="both")
   loc <- rownames(s$by.line)
   interval <- s$sample.interval
@@ -24,10 +27,10 @@ displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","exe
   total.time <- otherdata$total.time
   oldorder <- order(total.time, decreasing=TRUE)
   li <- list()
-  for (i in 1:length(oldorder)) {
-   li[[i]] <- lines[[oldorder[i]]]
+  for (y in 1:length(oldorder)) {
+   li[[y]] <- lines[[oldorder[y]]]
   }
-names(li) <- names(data)
+names(li) <- names(data) 
   lines <- li
   
   if (savefile != tempdir()){
@@ -57,15 +60,24 @@ summaryHTML(prof,show)
     fn1 <- fn[grep(names[i],fn)]
     ln1 <- ln[grep(names[i],fn)]
     value <- values[grep(names[i],fn)]
+    p <- parseout(lines[[i]])
+    p <- p[p[["terminal"]],]$line1
+    r <- data[[i]]$styles
+    test <- numeric()
+    test1 <- numeric()
+    for (q in 1:length(r)){
+      test<-  data[[i]][rep(q,sum(p==unique(p)[q])),]
+      test1 <- rbind(test1,test)
+    }
     timeintervals <- seq(range(values)[1], range(values)[2], length=(int-1))
     colourer <- character()
-    colourer<- highlight(output="profile.txt", parse.output=parse(text=lines[[i]]), renderer=myrenderer, styles=data[[i]]$styles, show_line_numbers=TRUE)
-    measure <- linenumbers(colourer, int=int)
+    colourer<- highlight(output="profile.txt", parse.output=parse(text=lines[[i]]), renderer=myrenderer, styles=test1$styles, show_line_numbers=TRUE)
+  measure <- linenumbers(colourer, int=int)
     colourer <- codecondenser(readLines("profile.txt"), int=int)
 
     form <- headerHTML(show,names,otherdata,interval,i)
     
-    maxi <- classdeterminer(colourer,measure,int, name[i],show, unique(data[[i]][,-4])) #change to generic
+    maxi <- classdeterminer(colourer,measure,int, name[i],show, data[[i]]) #change to generic
     namecode[i] <- paste(namecode[i],maxi, "<br>",sep="")
     colourer[which(colourer == "</style>")] <- paste(form[1],form[2],sep="")#paste(colourer[c(which(colourer == "</style>"),which(colourer == "</head>"),which(colourer == "<body>"))],collapse="") 
     colourer[which(colourer == "</head>")] <- form[3]
