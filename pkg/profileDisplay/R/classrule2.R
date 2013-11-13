@@ -3,7 +3,7 @@ classrule2<-function(block,id,ln1,class){
   l1<-lines$l1;l2<-lines$l2;l3<-lines$l3;ub<-lines$ub;
   if(block$token[1]=="IF"&&any(block[block$parent==id,"token"]=="ELSE")&&any(ln1 %in% l1:ub)){
     eline<-block[block$parent==id&block$token=="ELSE","line1"]
-    if(class[eline]!="1") class[eline]<-"2"
+    if(any(ln1 %in% eline:ub)&&class[eline]!="1") class[eline]<-"2"
   }
   if(l3==ub) return(class)
   exist<-c((l3+1):ub)[(l3+1):ub %in% ln1]

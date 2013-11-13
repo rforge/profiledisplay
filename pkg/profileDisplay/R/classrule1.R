@@ -5,9 +5,9 @@ classrule1<-function(block,id,ln1,class,child){
   if(any(ln1 %in% l1:ub )&&any(class[l1:l3]!="1")){
     class[remainclassify(child,num=ln1,first=l1,last=l3)]<-"2"
   }
-  if(block$token[1]=="IF"&&any(block[block$parent==id,"token"]=="ELSE")&&any(ln1 %in% l1:ub)){
+  if(block$token[1]=="IF"&&any(block[block$parent==id,"token"]=="ELSE")){
     eline<-block[block$parent==id&block$token=="ELSE","line1"]
-    if(class[eline]!="1") class[eline]<-"2"
+    if(any(ln1 %in% eline:ub)&&class[eline]!="1") class[eline]<-"2"
   }
   if(l3==ub) return(class)
   exist<-c((l3+1):ub)[(l3+1):ub %in% ln1]
@@ -30,6 +30,9 @@ classrule1<-function(block,id,ln1,class,child){
       remain<-remainclassify(child,ln1,first=l3,last=ub)
       class[remain[remain<max(exist)]]<-"2"
       class[remain[remain>max(exist)]]<-"3"
+      childline<-child$line1[!(child$line1 %in% ln1)]
+      class[childline[childline<max(exist)]]<-"2"
+      class[childline[childline>max(exist)]]<-"3"
     } 
   }
 return(class)
