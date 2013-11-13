@@ -1,6 +1,7 @@
 namecode <- function(show,names,otherdata){
   name <- unlist(strsplit(names, "[.]"))[-grep("R",unlist(strsplit(names, "[.]")))]
   total.sampling.time <- otherdata$total.sampling.time
+  total.time <- otherdata$total.time
   total.time <- total.time[order(total.time, decreasing=TRUE)]
   namecode <- character()
   if (length(names) == 1){
