@@ -1,4 +1,4 @@
-coverageClassifier<-function(prof,filename,d,legend=T){
+coverageClassifier<-function(prof,filename,d,legend=TRUE){
   #d<-parseout(file)
   list<-findMultiblocks(s=prof,d,filename)
   uline<-list$uline;class<-list$class;ln1<-list$ln1
@@ -31,5 +31,6 @@ coverageClassifier<-function(prof,filename,d,legend=T){
   d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]<-""
   color<-c("#FF7F7F","#FFBF7F","yellow","#7FFF7F")
   labels<-c("type1 lines that were executed","type2 lines that almost certainly were executed","type3 lines that probably were executed","type4 lines that had no evidences of being executed")
-  return(list(filename=filename,class=class,color=color,labels=labels))
+  if(legend==TRUE) return(list(filename=filename,class=class,color=color,labels=labels))
+  else return(list(filename=filename,class=class,color=color))
 }
