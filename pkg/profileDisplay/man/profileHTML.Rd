@@ -4,7 +4,7 @@
 Highlights the tokens
 }
 \description{
-Main function of the package.  Highlights the lines of code based on runtime in \code{\link{newdetective}} classes and presents the data in an HTML page.
+Highlights the lines of code based on runtime in \code{\link{newdetective}} classes and presents the data in an HTML page.
 }
 \usage{
 profileHTML(Rprof="Rprof.out", Rcode=NULL, detective = newdetective, int=12, colourdata=

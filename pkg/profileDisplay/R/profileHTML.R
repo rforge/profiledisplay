@@ -3,16 +3,14 @@ profileHTML <-
              rgb(colorRamp(c("#FFFFD4" ,"#FED98E"), space="Lab")(0:11/11), maxColorValue=255), 
            profileType=c("self","total", "memory"),savefile=tempdir()
            , visual="all", bar=FALSE) {
-   ## if (int != length(colourdata)){int <- min(int, length(colourdata))}
- ##   if (int <2){return(warning("At least 3 intervals must be produced."))}
-  ##  profileType <- match.arg(profileType)
+
     oldwd <- getwd()
+    on.exit(setwd(oldwd))
     
-    if (savefile != tempdir()){
-      savefile <- normalizePath(savefile, winslash="/", mustWork=FALSE)
-    }
+    dir.create(savefile, warn = FALSE)
+    savefile <- normalizePath(savefile, winslash="/", mustWork=TRUE)
+    
     newpath <- savefile
-    suppressWarnings(dir.create(newpath))
     
     if(is.null(Rcode)){
       fname <- unlist(strsplit(basename(Rprof), "[.]"))[1]
@@ -26,7 +24,6 @@ profileHTML <-
       s <-  profilerOLD(Rprof=NULL , Rcode=Rcode, newpath, profileType=profileType)
     }
     setwd(path)
-    on.exit(setwd(oldwd))
     
     if (identical(colourdata,rgb(colorRamp(c("#FFFFD4" ,"#FED98E"), space="Lab")(0:11/11), maxColorValue=255))) {
       if (int != 12){

@@ -1,6 +1,5 @@
 \name{barview}
 \alias{barview}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Generates an optional sidebar in \code{\link{profileHTML}}.
 }
@@ -22,7 +21,7 @@ output of the "highlight" function code under the \code{\link{newdetective}} det
 Returns a bar chart on the side of the Code section of the HTML page.
 }
 \author{
-Name
+Alexander Tsang
 }
 \examples{
 
