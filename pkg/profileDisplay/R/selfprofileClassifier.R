@@ -1,12 +1,13 @@
-selfprofileClassifier <- function(prof="Rprof.out",src=getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac") 
-                                  # prof <- "profiling.txt"
+selfprofileClassifier <- function(prof = "Rprof.out",
+                                  src = getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac") 
 
                                   ,colourdata,...) {  
-  s <- summaryRprof(prof, lines="show")
-  total.sampling.time <- s$sampling.time
-  loc <- rownames(s$by.line)
+  if (is.character(prof))
+    prof <- summaryRprof(prof, lines="show")
+  total.sampling.time <- prof$sampling.time
+  loc <- rownames(prof$by.line)
   fn <- sub("#.*","",loc)
-  interval <- s$sample.interval
+  interval <- prof$sample.interval
   names <- levels(factor(fn))
   k <- numeric()
   for(i in 1:length(names(src))){
@@ -14,7 +15,7 @@ selfprofileClassifier <- function(prof="Rprof.out",src=getLines(c("Example.R","E
  k <- c(k,j)
   }
 
-  h <- s$by.line[k,]
+  h <- prof$by.line[k,]
   values <- h$self.time
   loc <- rownames(h)
   fn <- sub("#.*","",loc)
@@ -42,7 +43,7 @@ selfprofileClassifier <- function(prof="Rprof.out",src=getLines(c("Example.R","E
     fn1 <- fn[grep(names[l],fn)]
     ln1 <- ln[grep(names[l],fn)]
     value <- values[grep(names[l],fn)]
-     data <- cbind(newdetective(src[l],value,ln1,fn1,names,s,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)])
+     data <- cbind(newdetective(src[l],value,ln1,fn1,names,prof,type="self", datawant=TRUE, styleswant=FALSE)[,c(1,10,11)])
     data <- unique(data) 
     test[[names[l]]] <- data
   }
