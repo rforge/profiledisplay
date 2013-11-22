@@ -1,22 +1,30 @@
-listRfiles<-function(s="Rprof.out"){
-  if(is.character(s)){
-    s<-summaryRprof(s,lines="show")
+listRfiles <- function(prof = "Rprof.out", dirs = "."){
+  if(is.character(prof)) {
+    prof <- summaryRprof(prof, lines="show")
   }
-  if(!is.list(s)||!("by.line" %in% names(s))){
-    stop("s should be a profile object with line profiling")
+  if(!is.list(prof) || !("by.line" %in% names(prof))){
+    stop("'prof' should be a summaryRprof object with line profiling")
   }
-  loc <- rownames(s$by.line)
+  
+  loc <- rownames(prof$by.line)
   names <- sub("#.*","",loc)
-  if(nrow(s$by.line)==0||all(rownames(s$by.line)=="<no location>")||length(names)==0){
-    stop("running time less than 0.02s")}
-  names <- levels(factor(names))
-  test <- c("<no location>", "Tools.R")
-  for (i in 1:length(test)){
-    if (length(grep(test[i], names)) >0) {
-      noloc <- which(names == "<no location>")
-      tool <- which(names == "Tools.R")
-      names <- names[-c(noloc,tool)]
+  names <- unique(names[names != "<no location>"])
+  
+  if(!length(names)) 
+    warning("No R file locations found")
+  else {
+    matched <- character()
+    for (dir in dirs) {
+      fullnames <- file.path(dir, names)
+      exists <- file.exists(fullnames)
+      matched <- c(matched, normalizePath(fullnames[exists], winslash = "/"))
+      names <- names[!exists]
+      if (!length(names)) break
     }
+    if (length(names)) 
+      warning("file(s) ", names, "not found.")
+    
+    names <- c(matched, names)
   }
   return(names)
 }

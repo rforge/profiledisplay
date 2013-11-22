@@ -1,42 +1,43 @@
 \name{listRfiles}
 \alias{listRfiles}
 \title{
-List the executed files.
+List the files mentioned in a profile.
 }
 \description{
-This function list the executed R files with the running times in \code{\link{summaryRprof}} output with lines="show".
+This function lists the files mentioned in a \code{\link{summaryRprof}} object.
+Directories are searched to find the existing files.
 }
 \usage{
-listRfiles(s = "Rprof.out")
+listRfiles(prof = "Rprof.out", dirs = ".")
 }
 \arguments{
-  \item{s}{
-output from \code{\link{summaryRprof}}.
+  \item{prof}{
+The filename of the output of \code{\link{Rprof}}, or an object resulting
+from \code{\link{summaryRprof}}.
+}
+  \item{dirs}{
+A vector of directory names in which to look for the files.
 }
 }
 \details{
-s should be a profile object with line profiling.
+Line profiling needs to be enabled in the profile data and in the 
+summary data.
 }
 \value{
-This function returns a vector containing the names of the executed Rfiles.
+This function returns a vector containing the names of the files.  If found
+in the specified directories, the filenames will be fully expanded; if not
+found, the basename of the file will be returned with a warning.
 }
 \author{
-Yuying Xie
+Yuying Xie and Duncan Murdoch
 }
 \seealso{
-\code{\link{summaryRprof}}
+\code{\link{Rprof}}, \code{\link{summaryRprof}}
 }
 \examples{
-library(profileDisplay)
-tools:::.createExdotR("tables", system.file(package="tables"))
-lines<-readLines("tables-Ex.R")
-lines<-lines[!grepl("quit\\\('no'\\\)",lines)]
-writeLines(lines,con="tables-Ex.R")
-Rprof(line.profiling=TRUE)
-source("tables-Ex.R")
-Rprof(NULL)
-pkg<-"tables"
-s <- summaryRprof("Rprof.out", lines="show")
-listRfiles(s)
+  # Read a prepared profile summary
+  data(lineSummary, package = "profileDisplay")
+ 
+  listRfiles(lineSummary, dirs = system.file("text", package = "profileDisplay"))
 }
 

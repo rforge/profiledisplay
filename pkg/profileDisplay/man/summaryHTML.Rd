@@ -25,7 +25,7 @@ The directory in which to write the results.
 }
 
 \value{
-The filename that was written.
+The name of the file that was written.
 }
 
 \author{

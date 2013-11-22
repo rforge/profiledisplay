@@ -1,4 +1,6 @@
-summaryHTML <- function(prof = "Rprof.out", show = c("self", "total", "memory"), dir = getwd()){
+summaryHTML <- function(prof = "Rprof.out", 
+                        show = c("self", "total", "memory"), 
+			dir = tempdir()){
   
   show <- match.arg(show)
   
