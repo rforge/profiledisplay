@@ -13,7 +13,7 @@ getLines <- function(filename, dir = ".", pkg = NULL) {
 	untar(tarfile, exdir = tardir)
 	dir <- file.path(list.files(tardir, full.names = TRUE), "R")
     }
-    fullname <- file.path(dir, filename)
+    fullname <- expandFilenames(filename, dir)
     exists <- file.exists(fullname)
     if (any(!exists)) {
 	msg <- paste0("file(s)\n", paste(" ", filename, collapse="\n"), "\ndo not exist in ", dir)
