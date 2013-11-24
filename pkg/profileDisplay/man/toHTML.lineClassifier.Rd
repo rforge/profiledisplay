@@ -18,7 +18,7 @@ A line classifier object.
 The output directory.
 }
   \item{...}{
-Not used.
+Parameters passed to \code{\link{writeCSS}}.
 }
 }
 \value{

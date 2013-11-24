@@ -46,6 +46,6 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	close(htmlcon)
 	on.exit()
     }
-    writeCSS(sort(allclasses), file.path(htmldir, "profileDisplay.css"))
+    writeCSS(sort(allclasses), file.path(htmldir, "profileDisplay.css"), ...)
     htmldir
 }

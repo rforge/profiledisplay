@@ -22,7 +22,7 @@ The range of background and foreground colours, from the first class to the last
 }
 \details{
 This writes out evenly spaced colours from the first to last for each of the
-named classes.
+named classes using \code{\link{colorRamp}}.
 }
 \value{
 The filename.
