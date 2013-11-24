@@ -6,6 +6,6 @@ Author: Alexander Tsang, Duncan Murdoch, Yuying Xie
 Maintainer: Duncan Murdoch <murdoch@stats.uwo.ca>
 Description: Function to highlight lines of R code based on profile data
 License: GPL-2 | GPL-3
-Depends: highlight, prettyR
+Depends: tools
 Suggests: knitr
 VignetteBuilder: knitr

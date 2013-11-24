@@ -7,7 +7,7 @@ profileHTML <-
     oldwd <- getwd()
     on.exit(setwd(oldwd))
     
-    dir.create(savefile, warn = FALSE)
+    dir.create(savefile, showWarnings = FALSE)
     savefile <- normalizePath(savefile, winslash="/", mustWork=TRUE)
     
     newpath <- savefile

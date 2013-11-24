@@ -28,10 +28,18 @@ The colour scheme to use for the display.
 }
 }
 \value{
-A list of dataframes, one per source file.  The dataframes each contain the following columns:
+An object of class \code{"lineClassifer"}.  This is a list with three components.
+The \code{files} component is
+list of dataframes, one per source file.  The dataframes each contain the following columns:
 \item{line1}{The line number.}
 \item{times}{How much time was observed on that line.}
 \item{styles}{Classification of this line.}
+\item{line}{The actual text for the line.}
+
+The \code{titles} component contains a text title for each file.
+
+The \code{info} component contains extra information for each file, 
+to be displayed just before the code.
 }
 \author{
 Alexander Tsang and Duncan Murdoch
