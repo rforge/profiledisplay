@@ -29,12 +29,13 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	classes <- files[[i]]$styles
 	allclasses <- unique(c(allclasses, classes))
 	
+	linenum <- sprintf("%0*d  ", floor(log10(length(lines))) + 1, seq_along(lines))
 	regexp <- "(^\\s*)(\\S*.*\\S*)(\\s*$)"
 	pre <- sub(regexp, "\\1", lines)
 	mid <- sub(regexp, "\\2", lines)
 	post <- sub(regexp, "\\3", lines)
 	
-	lines <- paste0(pre, '<span class="', classes, '">', mid, '</span>', post)
+	lines <- paste0(linenum, pre, '<span class="', classes, '">', mid, '</span>', post)
 	cat(file = htmlcon,
 	    lines,
 	    '', sep="\n")

@@ -4,7 +4,7 @@
 Write CSS file
 }
 \description{
-This writes a CSS file to be us\name{writeCSS}
+This writes a CSS file to be used in the profile files.
 }
 \usage{
 writeCSS(classes, filename, bg = c("white", "#FED98E"), fg = c("black", "black"))

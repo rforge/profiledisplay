@@ -34,7 +34,7 @@ selfprofileClassifier <- function(prof = "Rprof.out",
     data$lines <- lines[[1]][data$line1]
     files[[names[l]]] <- data
     titles[names[l]] <- paste0("Self time profile data for ", names[l])
-    info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2f execution time.", 
+    info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2f s execution time.", 
 			       interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
   result <- structure(list(files = files, titles = titles, info = info),
