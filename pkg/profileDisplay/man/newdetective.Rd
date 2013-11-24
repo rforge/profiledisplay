@@ -11,7 +11,7 @@ newdetective(x, value, ln, fn, names, rprofdata, type, int=12, datawant=FALSE,st
 }
 \arguments{
   \item{x}{
-The parse data produced by each file.
+A list of source lines from each file.
 }
   \item{value}{
 The times organized alphabetically by the file it is from and then put in chronological order by line number.
@@ -52,12 +52,12 @@ Name
 \code{\link{simple_detective}}
 }
 \examples{
-	source(system.file("text/exampleold.R", package = "profileDisplay"))
-summary <- summaryRprof(lines="show")
-loc <- rownames(summary$by.line)
-  values <- summary$by.line$self.time
+  # load an existing profile summary object.
+  data(lineSummary)
+  loc <- rownames(lineSummary$by.line)
+  values <- lineSummary$by.line$self.time
   fn <- sub("#.*","",loc)
   ln <- sub(".*#","",loc)
-  profileDisplay:::newdetective(system.file("/text/example.R", package = "profileDisplay"), values, ln,fn, names)
-  profileDisplay:::newdetective(system.file("/text/example.R", package = "profileDisplay"), values, ln,fn, names, datawant=TRUE, styleswant=FALSE)
+  newdetective(getLines("Example1.R", dir = system.file("text", package = "profileDisplay")), 
+	       values, ln,fn, names)
 }
