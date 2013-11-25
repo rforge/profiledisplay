@@ -7,7 +7,8 @@ Write CSS file
 This writes a CSS file to be used in the profile files.
 }
 \usage{
-writeCSS(classes, filename, bg = c("white", "#FED98E"), fg = c("black", "black"))
+writeCSS(classes, filename, bg = c("white", "#FED98E"), fg = c("black", "black"),
+         border.bg = "#FED98E")
 }
 \arguments{
   \item{classes}{
@@ -18,6 +19,9 @@ The file to which to write.
 }
   \item{bg, fg}{
 The range of background and foreground colours, from the first class to the last class.
+}
+  \item{border.bg}{
+The background colour to use on the borders of the page.
 }
 }
 \details{
