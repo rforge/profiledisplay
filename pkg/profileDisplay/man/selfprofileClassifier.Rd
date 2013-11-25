@@ -15,7 +15,7 @@ selfprofileClassifier(prof = "Rprof.out",
 }
 \arguments{
   \item{prof}{
-The name of a profile data file, or the result of \code{\link{summaryRprof()}} on one.
+The name of a profile data file, or the result of \code{\link{summaryRprof}} on one.
 }
   \item{dir}{
 A vector of directories in which to look for the source files.
@@ -35,6 +35,7 @@ list of dataframes, one per source file.  The dataframes each contain the follow
 \item{times}{How much time was observed on that line.}
 \item{styles}{Classification of this line.}
 \item{line}{The actual text for the line.}
+\item{summaryRprof}{A copy of the summaryRprof data.}
 
 The \code{titles} component contains a text title for each file.
 

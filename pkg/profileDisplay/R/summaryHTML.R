@@ -1,6 +1,7 @@
-summaryHTML <- function(prof = "Rprof.out", 
+summaryToHTML <- function(prof = "Rprof.out", 
                         show = c("self", "total", "memory"), 
-			dir = tempdir()){
+			dir = tempdir(),
+			outfile = "summaryRprof.html"){
   
   show <- match.arg(show)
   
@@ -13,17 +14,19 @@ summaryHTML <- function(prof = "Rprof.out",
   rownames(prof$by.total)[rownames(prof$by.total)=="<no location>"] <- "\"no location\""
   rownames(prof$by.line)[rownames(prof$by.line)=="<no location>"] <- "\"no location\""
     
-  outfile <- "summary.html"
-  outcon <- file( file.path(dir, outfile), "w")
-  StartList(outcon, title="Summary Rprof Data") 
-  cat("<pre>\n", file = outcon)
-  sink(outcon)
-  on.exit({ sink(NULL); close(outcon) } )
-  print(prof)
-  sink(NULL)
-  cat("</pre>\n", file = outcon)
-  EndHTML(outcon)
-  close(outcon)
-  on.exit()
+  outfile <- file.path(dir, outfile)
+  htmlcon <- file(outfile, "wt")
+  on.exit(close(htmlcon))
+  cat(file = htmlcon,
+    '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
+    '<html><head>', 
+    '<title>summarRprof data</title>',
+    '</head>',
+    '<body>',
+    '<pre>',
+    capture.output(print(prof)),
+    '</pre>',
+    '</body></html>',
+    '', sep="\n")
   outfile
 }
