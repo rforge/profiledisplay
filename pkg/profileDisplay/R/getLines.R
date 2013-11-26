@@ -15,13 +15,11 @@ getLines <- function(filename, dir = ".", pkg = NULL) {
     }
     fullname <- expandFilenames(filename, dir)
     exists <- file.exists(fullname)
-    if (any(!exists)) {
-	msg <- paste0("file(s)\n", paste(" ", filename, collapse="\n"), "\ndo not exist in ", dir)
-	if (all(!exists)) stop(msg)
-	warning(msg)
-    }
-    result <- lapply(fullname[exists], readLines)
-    names(result) <- filename
+    if (any(exists)) {
+	result <- lapply(fullname[exists], readLines)
+	names(result) <- filename
+    } else 
+	result <- list()
     result
 }
 	    

@@ -1,3 +1,20 @@
+# This function is like the one in tools
+htmlify <- function (x) 
+{
+    x <- gsub("&", "&amp;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("---", "&mdash;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("--", "&ndash;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("``", "&ldquo;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("''", "&rdquo;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("`([^']+)'", "&lsquo;\\1&rsquo;", x, perl = TRUE, useBytes = TRUE)
+    x <- gsub("`", "'", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("<", "&lt;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub(">", "&gt;", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("\"\\{\"", "\"{\"", x, fixed = TRUE, useBytes = TRUE)
+    x <- gsub("\"", "&quot;", x, fixed = TRUE, useBytes = TRUE)
+    x
+}
+
 toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
     
     stopifnot("lineClassifier" %in% class(x))
@@ -43,7 +60,7 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	    '', sep="\n")
 	    
 	if (doSummary && i == length(filenames)) 
-	    lines <- capture.output( print(x$summaryRprof) )
+	    lines <- htmlify( capture.output( print(x$summaryRprof) ) )
 	else {
 	    lines <- files[[i]]$lines
 	    classes <- files[[i]]$styles
@@ -55,7 +72,7 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	    mid <- sub(regexp, "\\2", lines)
 	    post <- sub(regexp, "\\3", lines)
 	
-	    lines <- paste0(linenum, pre, '<span class="', classes, '">', mid, '</span>', post)
+	    lines <- paste0(linenum, pre, '<span class="', classes, '">', htmlify(mid), '</span>', post)
 	}
 	cat(file = htmlcon,
 	    lines,

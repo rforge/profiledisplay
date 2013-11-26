@@ -11,10 +11,9 @@ expandFilenames <- function(names, dirs = ".") {
     if (!length(names)) break
   }
   if (length(names)) 
-    warning("file(s) ", paste(names, collapse = " "), "not found.")
+    warning("file(s) ", paste(names, collapse = " "), " not found.")
     
-  names <- c(matched, names)
-  return(names)
+  return(matched)
 }
 
 listRfiles <- function(prof = "Rprof.out", dirs = "."){
