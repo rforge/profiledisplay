@@ -11,6 +11,7 @@ to the time spent on that line in profile data.
 selfprofileClassifier(prof = "Rprof.out", 
                       dir = ".", 
 		      src = listRfiles(prof, dir), 
+		      breaks = 6,
 		      colourdata = colouring()$colourdata)
 }
 \arguments{
@@ -23,24 +24,29 @@ A vector of directories in which to look for the source files.
   \item{src}{
 The file names to classify.
 }
+  \item{breaks}{
+Breaks in values to be passed to \code{\link{cut}}.
+}
   \item{colourdata}{
 The colour scheme to use for the display.
 }
 }
 \value{
-An object of class \code{"lineClassifer"}.  This is a list with three components.
+An object of class \code{"lineClassifer"}.  This is a list with four components.
 The \code{files} component is
 list of dataframes, one per source file.  The dataframes each contain the following columns:
 \item{line1}{The line number.}
 \item{times}{How much time was observed on that line.}
 \item{styles}{Classification of this line.}
-\item{line}{The actual text for the line.}
-\item{summaryRprof}{A copy of the summaryRprof data.}
+\item{lines}{The actual text for the lines.}
 
 The \code{titles} component contains a text title for each file.
 
 The \code{info} component contains extra information for each file, 
 to be displayed just before the code.
+
+The \code{summaryRprof} component contains a copy of the summaryRprof data.
+
 }
 \author{
 Alexander Tsang and Duncan Murdoch

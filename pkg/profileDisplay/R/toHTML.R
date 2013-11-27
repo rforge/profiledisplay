@@ -63,8 +63,9 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	    lines <- htmlify( capture.output( print(x$summaryRprof) ) )
 	else {
 	    lines <- files[[i]]$lines
-	    classes <- files[[i]]$styles
-	    allclasses <- unique(c(allclasses, classes))
+	    styles <- files[[i]]$styles
+	    classes <- paste0("gp", styles)
+	    allclasses <- unique(c(allclasses, styles))
 	    linenum <- files[[i]]$line1
 	    linenum <- sprintf("%0*d  ", floor(log10(max(linenum))) + 1, linenum)
 	    regexp <- "(^\\s*)(\\S*.*\\S*)(\\s*$)"
@@ -83,6 +84,6 @@ toHTML.lineClassifier <- function(x, htmldir = tempdir(), ...) {
 	close(htmlcon)
 	on.exit()
     }
-    writeCSS(sort(allclasses), file.path(htmldir, "profileDisplay.css"), ...)
+    writeCSS(paste0("gp", sort(allclasses)), file.path(htmldir, "profileDisplay.css"), ...)
     file.path(htmldir, htmlfilenames[1])
 }
