@@ -23,16 +23,19 @@ displayprofile <- function(prof="Rprof.out",
   h <- s$by.line[k,]
   values <- h[,1] #for self. do for loop for self, total, memory?
   loc <- rownames(h)
-  fn <- otherdata$fn
-  ln <- otherdata$ln
-  total.time <- otherdata$total.time
-  oldorder <- order(total.time, decreasing=TRUE)
-  li <- list()
-  for (y in 1:length(oldorder)) {
-   li[[y]] <- lines[[oldorder[y]]]
+  fn <- sub("#.*","",loc)
+  ln <- sub(".*#","",loc)
+  total.time <- numeric()
+  for (i in 1:length(lines)){
+    total.time[i] <- sum(values[which(fn == lines[i])])
   }
-names(li) <- names(data) 
-  lines <- li
+  oldorder <- order(total.time, decreasing=TRUE)
+  files <- data$files
+  for (y in 1:length(oldorder)) {
+   li[[y]] <- files[[oldorder[y]]]
+  }
+names(li) <- names(files) 
+  files <- li
   
   if (savefile != tempdir()){
     savefile <- normalizePath(savefile, winslash="/", mustWork=FALSE)
