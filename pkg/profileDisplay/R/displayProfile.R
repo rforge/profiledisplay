@@ -1,7 +1,7 @@
 displayprofile <- function(prof="Rprof.out", 
                            show=c("self","total","memory","executed"), 
                            #lines=getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac"), #modify
-                           data=selfprofileClassifier(prof,src = listRfiles(prof, dir=".")),
+                           data=selfprofileClassifier(prof,src = listRfiles(prof, dir=".")), #in this classifier can it only save self/total/memory that it needs?
                            otherdata= profiledata(prof,lines),
                            int=12,
                           savefile=tempdir(), colourdata = colouring()$colourdata) {
@@ -11,7 +11,6 @@ displayprofile <- function(prof="Rprof.out",
   }
   s <- data$summaryRprof
   lines <- names(data$files)
-  #s <- summaryRprof(prof, lines="show", memory="both")
   loc <- rownames(s$by.line)
   interval <- s$sample.interval
 
@@ -22,7 +21,7 @@ displayprofile <- function(prof="Rprof.out",
     }
 
   h <- s$by.line[k,]
-  values <- otherdata$values
+  values <- h[,1] #for self. do for loop for self, total, memory?
   loc <- rownames(h)
   fn <- otherdata$fn
   ln <- otherdata$ln
