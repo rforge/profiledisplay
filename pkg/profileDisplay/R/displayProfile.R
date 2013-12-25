@@ -1,24 +1,26 @@
-displayprofile <- function(prof="Rprof.out", show=c("self","total","memory","executed"), 
-                           lines=getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac"), 
-                           data=selfprofileClassifier(prof,lines),
+displayprofile <- function(prof="Rprof.out", 
+                           show=c("self","total","memory","executed"), 
+                           #lines=getLines(c("Example.R","Example1.R","Example2.R"),"/Users/apt_imac"), #modify
+                           data=selfprofileClassifier(prof,src = listRfiles(prof, dir=".")),
                            otherdata= profiledata(prof,lines),
                            int=12,
-                          savefile=tempdir()) {
+                          savefile=tempdir(), colourdata = colouring()$colourdata) {
   dir <- dirname(prof)
-    if(dir=="."){
-      dir <- getwd()
-    }
-  
-  s <- summaryRprof(prof, lines="show", memory="both")
+  if(dir=="."){
+    dir <- getwd()
+  }
+  s <- data$summaryRprof
+  lines <- names(data$files)
+  #s <- summaryRprof(prof, lines="show", memory="both")
   loc <- rownames(s$by.line)
   interval <- s$sample.interval
-  rowvals <- rownames(s$by.line)
-  k <- numeric()
-  for(i in 1:length(names(lines))){
-    j <-  grep(names(lines)[i],loc) 
-    k <- c(k,j)
-  }
-  
+
+    k <- numeric() #this only profiles for the files needed
+    for(i in 1:length(lines)){
+      j <-  grep(lines[i],loc) 
+      k <- c(k,j)
+    }
+
   h <- s$by.line[k,]
   values <- otherdata$values
   loc <- rownames(h)
@@ -75,7 +77,7 @@ summaryHTML(prof,show)
   measure <- linenumbers(colourer, int=int)
     colourer <- codecondenser(readLines("profile.txt"), int=int)
 
-    form <- headerHTML(show,names,otherdata,interval,i,col)
+    form <- headerHTML(show,names,otherdata,interval,i)
     
     maxi <- classdeterminer(colourer,measure,int, name[i],show, data[[i]]) #change to generic
     namecode[i] <- paste(namecode[i],maxi, "<br>",sep="")
@@ -106,3 +108,4 @@ summaryHTML(prof,show)
   
   setwd(oldwd)
   }
+
