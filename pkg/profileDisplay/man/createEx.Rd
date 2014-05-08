@@ -15,10 +15,10 @@ The selected package names to get the example file.
 }
 }
 \details{
-If pkg is not specified, an error will bw returned.
+If pkg is not specified, an error will be returned.
 }
 \value{
-The example file will ve created,a character vector containing the directory information of the created R example file will be returned.
+The example file will be created,a character vector containing the directory information of the created R example file will be returned.
 }
 \author{
 Yuying Xie
