@@ -7,7 +7,7 @@ findMultiblocks<-function(s=NULL,d,filename=NULL){
   fn <-fn[which(fn==basename(filename))]
   ln1<-sort(as.numeric(ln[which(ln != "")]))
   uline<-d[d$line1!=d$line2,]
-  list<-blocksFliter(uline,d,ln1)
+  list<-blocksFilter(uline,d,ln1)
   uline<-list$uline;ln1<-list$ln1
   class[ln1]<-"1"
   if(nrow(uline)!=0){
