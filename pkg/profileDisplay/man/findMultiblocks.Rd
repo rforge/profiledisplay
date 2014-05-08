@@ -5,7 +5,7 @@
 Find multilines blocks
 }
 \description{
-This function find the blocks that takes more than 1 line according to the given code file.
+This function finds the blocks that takes more than 1 line according to the given code file.
 }
 \usage{
 findMultiblocks(s = NULL, d, filename = NULL)
