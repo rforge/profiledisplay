@@ -1,7 +1,7 @@
 \name{coverageClassifier}
 \alias{coverageClassifier}
 \title{
-Classify the lines of code file according to the executed lines.
+Classify the lines of code file according to the executed lines
 }
 \description{
 This is the main function to classify the codes into four categories based on executed lines of codes.
@@ -11,7 +11,7 @@ coverageClassifier(prof, filename, d, legend = TRUE)
 }
 \arguments{
   \item{prof}{
-profile data from \code{\link{summaryRprof}
+profile data from \code{\link{summaryRprof}}
 }
   \item{filename}{
 The file path of the codes including the file name and directory.
