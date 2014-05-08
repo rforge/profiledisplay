@@ -11,7 +11,7 @@ coverageClassifier(prof, filename, d, legend = TRUE)
 }
 \arguments{
   \item{prof}{
-profile data from \code{\link{summaryRprof}}
+profile data from \code{\link{summaryRprof}}.
 }
   \item{filename}{
 The file path of the codes including the file name and directory.
@@ -39,6 +39,7 @@ Yuying Xie
 
 \seealso{
 \code{\link{summaryRprof}},\code{\link{findMultiblocks}}
+}
 \examples{
 code<-readLines(system.file("/text/Example1.R",package="profileDisplay"))
 p<-parse(text=code)
