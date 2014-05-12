@@ -20,15 +20,15 @@ The file path of the codes including the file name and directory.
 parse data of the codes.
 }
   \item{legend}{
-TRUE if we want to return the labels for each categories of lines.
+TRUE if we want to return the labels for each category of lines.
 }
 }
 
 \value{
 A list with three or four components will be returned.
 
-\item{filename}{file path for the R codes.}
-\item{class}{The classification of each lines, type 1,2,3 and 4.}
+\item{filename}{file path of the R codes.}
+\item{class}{A character vector indicating the classification of each lines, type 1,2,3 and 4.}
 \item{color}{The four colors for different categories of lines.}
 \item{labels}{label of description for each category.}
 }
