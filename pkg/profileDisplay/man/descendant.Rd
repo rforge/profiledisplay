@@ -4,7 +4,7 @@
 Get the parse data of block or statement.
 }
 \description{
-This function will retrirve the parse data related to the specified id.
+This function will retrieve the parse data related to the specified id.
 }
 \usage{
 descendant(data = NULL, id = NULL)
@@ -21,7 +21,7 @@ The id for each line in parse data.
 Given an id from parse data, the function can retrieve the parse data having the same parent, whose parents'(grandparents, great grantparents and so on) id are the same. 
 }
 \value{
-A data.frame as a subset of parse data that all parse data inside the same block or statement will be returned.
+A data.frame as a subset of parse data with all parse data inside the same block or statement will be returned.
 }
 \author{
 Yuying Xie
