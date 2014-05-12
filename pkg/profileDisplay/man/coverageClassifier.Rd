@@ -44,5 +44,6 @@ Yuying Xie
 code<-readLines(system.file("/text/Example1.R",package="profileDisplay"))
 p<-parse(text=code)
 d<-getParseData(p)#create the parse data
+data(lineSummary)
 coverageClassifier(lineSummary,filename="~/inst/text/Example1.R",d=d,legend=TRUE)
 }
