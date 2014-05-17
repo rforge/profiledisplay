@@ -41,4 +41,5 @@ d<-getParseData(p)#create the parse data
 data(lineSummary)
 findMultiblocks(s=lineSummary,d=d,filename="Example1.R")
 }
+\keyword{internal}
 
