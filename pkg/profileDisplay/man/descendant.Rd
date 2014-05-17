@@ -48,6 +48,6 @@ add1 <- function(X,Y){
 
 code<-readLines(system.file("/text/Example1.R",package="profileDisplay"))
 p<-parse(text=code)
-d<-getParseData(p)#create the parse data
+d<-getParseData(p,includeText=TRUE)#create the parse data
 d[d$id \%in\% descendant(data=d,id=140),"text"]#140 is id of the statement: Zold<-X[i] +Y[i]
 }
