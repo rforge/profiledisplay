@@ -1,36 +1,78 @@
-coverageClassifier<-function(prof,filename,d,legend=TRUE){
+coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir=".",
+                             src=listRfiles(prof, dir),legend=TRUE){
+  setwd(dir)
+  if (is.character(prof))
+    prof <- summaryRprof(prof, lines="show")
+  total.sampling.time<-prof$sampling.time
+  interval<-prof$sample.interval  
+  times<-prof$by.line
+  loc<-rownames(times)
+  if (is.null(loc))
+    stop("line profiling data not present")
+  fn<-sub("#.*","",loc)
+  names<-basename(src)
+  keep<-fn %in% names
+  times<-times[keep,]
+  values <-times$self.time
+  loc<-loc[keep]
+  fn<-sub("#.*","",loc)
+  ln<-as.numeric(sub(".*#","",loc)) 
+  total.time <- numeric(length(names))
+  for (i in seq_along(names)){
+    total.time[i] <- sum(times$self.time[fn == names[i]])
+  } 
+  files <- list()
+  titles <- character()
+  info <- character()
   #d<-parseout(file)
-  list<-findMultiblocks(s=prof,d,filename)
-  uline<-list$uline;class<-list$class;ln1<-list$ln1
-  if(nrow(uline)!=0){
-    max<-max(uline$level)
-    for(i in max:1){
-      f<-uline[uline$level==i,]
-      for(j in 1:nrow(f)){
-        id<-f[j,"id"]
-        block<-d[d$id %in% descendant(data=d,id=id),]
-        child<-findchilds(parent=f[j,],uline)
-        if(nrow(child)!=0){
-        class<-classrule1(block,id,ln1,class,child)          
-        }else{
-          class<-classrule2(block,id,ln1,class)
+  for(l in length(src)){
+    keep<-fn==names[l]
+    ln1<-ln[keep]
+    fn1<-fn[keep]
+    value<-values[keep]
+    lines<-getLines(src[l])[[1]]
+    fullvalue<-numeric(length(lines))
+    fullvalue[ln1]<-value
+    filename<-src[l]
+    p<-parse(filename)
+    d<-getParseData(p)
+    list<-findMultiblocks(s=prof,d,filename)
+    uline<-list$uline;class<-list$class;ln1<-list$ln1
+    if(nrow(uline)!=0){
+      max<-max(uline$level)
+      for(i in max:1){
+        f<-uline[uline$level==i,]
+        for(j in 1:nrow(f)){
+          id<-f[j,"id"]
+          block<-d[d$id %in% descendant(data=d,id=id),]
+          child<-findchilds(parent=f[j,],uline)
+          if(nrow(child)!=0){
+            class<-classrule1(block,id,ln1,class,child)          
+          }else{
+            class<-classrule2(block,id,ln1,class)
+          }
         }
       }
+      uncolored<-remainclassify(uline,ln1,first=1,last=length(class))
+      class[1:length(class)%in%uncolored&1:length(class)<max(ln1)]<-"2"
+      class[1:length(class)%in%uncolored&1:length(class)>max(ln1)]<-"3"
+    }else{
+      class[class=="4"&1:length(class)<max(ln1)]<-"2"
+      class[class=="4"&1:length(class)>max(ln1)]<-"3"
+      #dont need to coloring empty lines(gepl)
     }
-    uncolored<-remainclassify(uline,ln1,first=1,last=length(class))
-    class[1:length(class)%in%uncolored&1:length(class)<max(ln1)]<-"2"
-    class[1:length(class)%in%uncolored&1:length(class)>max(ln1)]<-"3"
-  }else{
-    class[class=="4"&1:length(class)<max(ln1)]<-"2"
-    class[class=="4"&1:length(class)>max(ln1)]<-"3"
-    #dont need to coloring empty lines(gepl)
+    class<-SRBidentify(d,class,uline,ln1)
+    line1<-as.numeric(names(which(table(d$line1)==1)))
+    class[d[d$line1 %in% line1 & d$token %in% c("'{'","'}'"),"line1"]]<-""
+    d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]<-""
+    
+    data <- data.frame(line1=seq_along(class), times=fullvalue, styles=class, lines=lines)
+    files[[names[l]]] <- data
+    titles[names[l]] <- paste0(profileType, " time profile data for ", names[l])
+    info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
+                              interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
-  class<-SRBidentify(d,class,uline,ln1)
-  line1<-as.numeric(names(which(table(d$line1)==1)))
-  class[d[d$line1 %in% line1 & d$token %in% c("'{'","'}'"),"line1"]]<-""
-  d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]<-""
-  color<-c("#FF7F7F","#FFBF7F","yellow","#7FFF7F")
-  labels<-c("type1 lines that were executed","type2 lines that almost certainly were executed","type3 lines that probably were executed","type4 lines that had no evidences of being executed")
-  if(legend==TRUE) return(list(filename=filename,class=class,color=color,labels=labels))
-  else return(list(filename=filename,class=class,color=color))
+  result <- structure(list(files = files, titles = titles, info = info, summaryRprof = prof),
+                      class = "lineClassifier")
+  return(result)
 }
