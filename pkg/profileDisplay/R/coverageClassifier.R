@@ -1,8 +1,8 @@
 coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir=".",
-                             src=listRfiles(prof, dir),legend=TRUE){
+                             src=listRfiles(prof, dir)){
   setwd(dir)
   if (is.character(prof))
-    prof <- summaryRprof(prof, lines="show")
+    prof<-summaryRprof(prof, lines="show")
   total.sampling.time<-prof$sampling.time
   interval<-prof$sample.interval  
   times<-prof$by.line
@@ -17,22 +17,21 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir=".",
   loc<-loc[keep]
   fn<-sub("#.*","",loc)
   ln<-as.numeric(sub(".*#","",loc)) 
-  total.time <- numeric(length(names))
+  total.time<-numeric(length(names))
   for (i in seq_along(names)){
     total.time[i] <- sum(times$self.time[fn == names[i]])
   } 
-  files <- list()
-  titles <- character()
-  info <- character()
-  #d<-parseout(file)
-  for(l in length(src)){
+  files<-list()
+  titles<-character()
+  info<-character()
+  for(l in 1:length(src)){
     keep<-fn==names[l]
-    ln1<-ln[keep]
-    fn1<-fn[keep]
+    ln0<-ln[keep]
+    fn0<-fn[keep]
     value<-values[keep]
     lines<-getLines(src[l])[[1]]
     fullvalue<-numeric(length(lines))
-    fullvalue[ln1]<-value
+    fullvalue[ln0]<-value
     filename<-src[l]
     p<-parse(filename)
     d<-getParseData(p)
@@ -59,14 +58,13 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir=".",
     }else{
       class[class=="4"&1:length(class)<max(ln1)]<-"2"
       class[class=="4"&1:length(class)>max(ln1)]<-"3"
-      #dont need to coloring empty lines(gepl)
     }
     class<-SRBidentify(d,class,uline,ln1)
     line1<-as.numeric(names(which(table(d$line1)==1)))
     class[d[d$line1 %in% line1 & d$token %in% c("'{'","'}'"),"line1"]]<-""
     d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]<-""
     
-    data <- data.frame(line1=seq_along(class), times=fullvalue, styles=as.chracter(class), lines=lines)
+    data <- data.frame(line1=seq_along(class), times=fullvalue, styles=as.character(class), lines=lines)
     files[[names[l]]] <- data
     titles[names[l]] <- paste0(profileType, " time profile data for ", names[l])
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
