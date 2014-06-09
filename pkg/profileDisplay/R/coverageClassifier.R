@@ -62,9 +62,10 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir=".",
     class<-SRBidentify(d,class,uline,ln1)
     line1<-as.numeric(names(which(table(d$line1)==1)))
     class[d[d$line1 %in% line1 & d$token %in% c("'{'","'}'"),"line1"]]<-""
-    d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]<-""
+    class[d[d$token=="COMMENT" & d$line1 %in% line1,"line1"]]<-""
+    class[missingseq(unique(d$line1))]<-""
     
-    data <- data.frame(line1=seq_along(class), times=fullvalue, styles=as.character(class), lines=lines)
+    data <- data.frame(line1=seq_along(class), times=fullvalue, styles=class, lines=lines)
     files[[names[l]]] <- data
     titles[names[l]] <- paste0(profileType, " time profile data for ", names[l])
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
