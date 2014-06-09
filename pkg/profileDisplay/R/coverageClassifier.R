@@ -1,6 +1,7 @@
 coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
-  src=listRfiles(prof, dir)
+  
   setwd(dir)
+  src<-listRfiles(prof, dir)
   if (is.character(prof))
     prof<-summaryRprof(prof, lines="show")
   total.sampling.time<-prof$sampling.time
