@@ -1,5 +1,4 @@
-coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
-  
+coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){ 
   setwd(dir)
   src<-listRfiles(prof, dir)
   if (is.character(prof))
@@ -47,9 +46,9 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
           block<-d[d$id %in% descendant(data=d,id=id),]
           child<-findchilds(parent=f[j,],uline)
           if(nrow(child)!=0){
-            class<-classrule1(block,id,ln1,class,child)          
+            class<-classrule1(block,id,ln1,class,child,uline)          
           }else{
-            class<-classrule2(block,id,ln1,class)
+            class<-classrule2(block,id,ln1,class,uline)
           }
         }
       }
