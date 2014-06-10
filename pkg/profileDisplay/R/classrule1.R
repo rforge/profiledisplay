@@ -1,4 +1,4 @@
-classrule1<-function(block,id,ln1,class,child){
+classrule1<-function(block,id,ln1,class,child,uline){
   if(nrow(child)==1&&child$line1==min(block$line1)&&child$line2==max(block$line2)) return(class)
   lines<-blocklines(block)
   l1<-lines$l1;l2<-lines$l2;l3<-lines$l3;ub<-lines$ub;
