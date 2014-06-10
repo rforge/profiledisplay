@@ -1,4 +1,4 @@
-colexp_IF<-function(token,ln1,class){
+colexp_IF<-function(token,d,ln1,class){
   l1<-token[1,"line1"]
   l2<-token[token$parent==token[1,"parent"] & token$token=="'('","line1"]
   l3<-token[token$parent==token[1,"parent"] & token$token=="')'","line1"]
