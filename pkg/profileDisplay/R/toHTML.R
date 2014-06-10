@@ -17,7 +17,6 @@ htmlify <- function (x)
 
 toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
   stopifnot("lineClassifier" %in% class(x))
-  table<-""
   files <- x$files
   titles <- x$titles
   info <- x$info
@@ -59,11 +58,11 @@ toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
         '', sep="\n")
     
     if (doSummary && i == length(filenames)) 
-      lines <- htmlify( capture.output( print(x$summaryRprof) ) )
+      {lines <- htmlify( capture.output( print(x$summaryRprof) ) );table=""}
     else {
       lines <- files[[i]]$lines
       styles <- files[[i]]$styles
-      if(profileType="Executed") table<-maketable(styles)
+      if(profileType=="Executed") table<-maketable(styles)
       classes <- paste0("gp", styles)
       allclasses <- unique(c(allclasses, styles))
       linenum <- files[[i]]$line1
