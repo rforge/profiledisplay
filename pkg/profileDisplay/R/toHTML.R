@@ -84,6 +84,10 @@ toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
     close(htmlcon)
     on.exit()
   }
-  writeCSS(paste0("gp", sort(allclasses)), file.path(htmldir, "profileDisplay.css"), ...)
+  if(profileType=="Executed"){
+    writeCSS(paste0("gp", sort(allclasses))[1:4], file.path(htmldir, "profileDisplay.css"), bg=c("#FF7F7F","#FFBF7F","yellow","#7FFF7F"))
+  }else{
+    writeCSS(paste0("gp", sort(allclasses)), file.path(htmldir, "profileDisplay.css"), ...)
+  }
   file.path(htmldir, htmlfilenames[1])
 }
