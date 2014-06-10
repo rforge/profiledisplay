@@ -1,4 +1,4 @@
-classrule2<-function(block,id,ln1,class){
+classrule2<-function(block,id,ln1,class,uline){
   lines<-blocklines(block)
   l1<-lines$l1;l2<-lines$l2;l3<-lines$l3;ub<-lines$ub;
   if(block$token[1]=="IF"&&any(block[block$parent==id,"token"]=="ELSE")&&any(ln1 %in% l1:ub)){
