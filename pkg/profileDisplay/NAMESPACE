@@ -1,1 +1,1 @@
-export(descendant,coverageClassifier,createEx,profileClassifier)
+export(descendant,coverageClassifier,createEx,profileClassifier,toHTML.lineClassifier)
