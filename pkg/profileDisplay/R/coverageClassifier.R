@@ -25,16 +25,16 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
   files<-list()
   titles<-character()
   info<-character()
-  for(l in 1:length(src)){
+  for(l in seq_along(src)){
     keep<-fn==names[l]
     ln0<-ln[keep]
     fn0<-fn[keep]
     value<-values[keep]
-    lines<-getLines(src[l])[[1]]
+    filename<-src[l]
+    lines<-getLines(filename)[[1]]
     fullvalue<-numeric(length(lines))
     fullvalue[ln0]<-value
-    filename<-src[l]
-    p<-parse(filename)
+    p<-parse(text=lines)
     d<-getParseData(p)
     list<-findMultiblocks(s=prof,d,filename)
     uline<-list$uline;class<-list$class;ln1<-list$ln1
