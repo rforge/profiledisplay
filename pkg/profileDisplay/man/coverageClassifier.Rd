@@ -7,30 +7,34 @@ Classify the lines of code file according to the executed lines
 This is the main function to classify the codes into four categories based on executed lines of codes.
 }
 \usage{
-coverageClassifier(prof, filename, d, legend = TRUE)
+coverageClassifier(profileType="Executed",prof="Rprof.out",dir=".")
 }
 \arguments{
-  \item{prof}{
-profile data from \code{\link{summaryRprof}}.
+  \item{profileType}{
+  The type of the profile data file, the default is "Executed". The other profile types are "Self" , "Total" and "Memory".
 }
-  \item{filename}{
-The file path of the codes including the file name and directory.
+  \item{dir}{
+A directory where to look for the source files.
 }
-  \item{d}{
-parse data of the codes.
-}
-  \item{legend}{
-TRUE if we want to return the labels for each category of lines.
-}
+
 }
 
 \value{
-A list with three or four components will be returned.
+An object of class \code{"lineClassifer"}.  This is a list with four components.
+The \code{files} component is
+list of dataframes, one per source file.  The dataframes each contain the following columns:
+\item{line1}{The line number.}
+\item{times}{How much time was observed on that line.}
+\item{styles}{Classification of this line.}
+\item{lines}{The actual text for the lines.}
 
-\item{filename}{file path of the R codes.}
-\item{class}{A character vector indicating the classification of each lines, type 1,2,3 and 4.}
-\item{color}{The four colors for different categories of lines.}
-\item{labels}{label of description for each category.}
+The \code{titles} component contains a text title for each file.
+
+The \code{info} component contains extra information for each file, 
+to be displayed just before the code.
+
+The \code{summaryRprof} component contains a copy of the summaryRprof data.
+
 }
 
 \author{
@@ -41,9 +45,6 @@ Yuying Xie
 \code{\link{summaryRprof}},\code{\link{findMultiblocks}}
 }
 \examples{
-code<-readLines(system.file("/text/Example1.R",package="profileDisplay"))
-p<-parse(text=code)
-d<-getParseData(p)#create the parse data
-data(lineSummary)
-coverageClassifier(lineSummary,filename="~/inst/text/Example1.R",d=d,legend=TRUE)
+x<-coverageClassifier(profileType="Executed",lineSummary,dir=system.file("text",package="profileDisplay"))
+toHTML.lineClassifier(x, profileType="Executed", htmldir = tempdir())
 }
