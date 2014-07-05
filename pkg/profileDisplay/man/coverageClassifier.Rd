@@ -42,7 +42,7 @@ Yuying Xie
 }
 
 \seealso{
-\code{\link{summaryRprof}},\code{\link{findMultiblocks}}
+\code{\link{summaryRprof}},\code{\link{toHTML.lineClassifier}}
 }
 \examples{
 x<-coverageClassifier(profileType="Executed",lineSummary,dir=system.file("text",package="profileDisplay"))
