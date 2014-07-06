@@ -2,10 +2,10 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
   setwd(dir)
   src<-listRfiles(prof, dir)
   if (is.character(prof))
-    s<-summaryRprof(prof, lines="show")
-  total.sampling.time<-s$sampling.time
-  interval<-s$sample.interval  
-  times<-s$by.line
+    prof<-summaryRprof(prof, lines="show")
+  total.sampling.time<-prof$sampling.time
+  interval<-prof$sample.interval  
+  times<--prof$by.line
   loc<-rownames(times)
   if (is.null(loc))
     stop("line profiling data not present")
@@ -73,6 +73,6 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
                               interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
-  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=s),class="lineClassifier")
+  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=prof),class="lineClassifier")
   return(result)
 }
