@@ -13,6 +13,9 @@ coverageClassifier(profileType="Executed",prof="Rprof.out",dir=".")
   \item{profileType}{
   The type of the profile data file, the default is "Executed". The other profile types are "Self" , "Total" and "Memory".
 }
+  \item{prof}{
+profiling data or a summary profiling data from \code{\link{summaryRprof} }.
+}
   \item{dir}{
 A directory where to look for the source files.
 }
