@@ -34,7 +34,7 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     p<-parse(text=lines)
     d<-getParseData(p)
     num<-unique(c(which(ln0 %in% linesFilter(d)),which(ln0>length(lines))))
-    if(length(num!=0) ){ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]}
+    if(length(num)!=0){ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]}
     fullvalue<-numeric(length(lines))
     fullvalue[ln0]<-value
     list<-findMultiblocks(s=s,d,filename)
