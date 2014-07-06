@@ -5,7 +5,7 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     prof<-summaryRprof(prof, lines="show")
   total.sampling.time<-prof$sampling.time
   interval<-prof$sample.interval  
-  times<--prof$by.line
+  times<-prof$by.line
   loc<-rownames(times)
   if (is.null(loc))
     stop("line profiling data not present")
