@@ -37,7 +37,7 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     if(length(num)!=0){ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]}
     fullvalue<-numeric(length(lines))
     fullvalue[ln0]<-value
-    list<-findMultiblocks(s=s,d,filename)
+    list<-findMultiblocks(s=prof,d,filename)
     uline<-list$uline;class<-list$class;ln1<-list$ln1
     if(nrow(uline)!=0){
       max<-max(uline$level)
