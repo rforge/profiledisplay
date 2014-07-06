@@ -34,7 +34,7 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     p<-parse(text=lines)
     d<-getParseData(p)
     num<-unique(c(which(ln0 %in% linesFilter(d)),which(ln0>length(lines))))
-    ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]
+    if(length(num!=0) ){ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]}
     fullvalue<-numeric(length(lines))
     fullvalue[ln0]<-value
     list<-findMultiblocks(s=s,d,filename)
@@ -73,6 +73,6 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
                               interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
-  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=prof),class="lineClassifier")
+  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=s),class="lineClassifier")
   return(result)
 }
