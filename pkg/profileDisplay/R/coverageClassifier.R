@@ -2,10 +2,10 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
   setwd(dir)
   src<-listRfiles(prof, dir)
   if (is.character(prof))
-    prof<-summaryRprof(prof, lines="show")
-  total.sampling.time<-prof$sampling.time
-  interval<-prof$sample.interval  
-  times<-prof$by.line
+    s<-summaryRprof(prof, lines="show")
+  total.sampling.time<-s$sampling.time
+  interval<-s$sample.interval  
+  times<-s$by.line
   loc<-rownames(times)
   if (is.null(loc))
     stop("line profiling data not present")
@@ -31,11 +31,13 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     value<-values[keep]
     filename<-src[l]
     lines<-getLines(filename)[[1]]
-    fullvalue<-numeric(length(lines))
-    fullvalue[ln0]<-value
     p<-parse(text=lines)
     d<-getParseData(p)
-    list<-findMultiblocks(s=prof,d,filename)
+    num<-unique(c(which(ln0 %in% linesFilter(d)),which(ln0>length(lines))))
+    ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]
+    fullvalue<-numeric(length(lines))
+    fullvalue[ln0]<-value
+    list<-findMultiblocks(s=s,d,filename)
     uline<-list$uline;class<-list$class;ln1<-list$ln1
     if(nrow(uline)!=0){
       max<-max(uline$level)
