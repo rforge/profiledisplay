@@ -6,6 +6,9 @@ findMultiblocks<-function(s=NULL,d,filename=NULL){
   ln <-ln[which(fn==basename(filename))]#sth about tool.R
   fn <-fn[which(fn==basename(filename))]
   ln1<-sort(as.numeric(ln[which(ln != "")]))
+  ln1<-ln1[which(ln1<=max(d$line1))]
+  lines<-linesFilter(d)
+  ln1<-ln1[-which(ln1 %in% lines)]
   uline<-d[d$line1!=d$line2,]
   list<-blocksFilter(uline,d,ln1)
   uline<-list$uline;ln1<-list$ln1
