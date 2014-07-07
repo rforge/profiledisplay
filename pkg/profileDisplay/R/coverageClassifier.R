@@ -1,6 +1,4 @@
-coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){ 
-  old.dir<-setwd(dir)
-  on.exit(setwd(old.dir))
+coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
   src<-listRfiles(prof, dir)
   if (is.character(prof))
     prof<-summaryRprof(prof, lines="show")
@@ -32,8 +30,9 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     value<-values[keep]
     filename<-src[l]
     lines<-getLines(filename)[[1]]
-    p<-parse(text=lines)
+    p<-parse(text=lines, keep.source=TRUE)
     d<-getParseData(p)
+    if (is.null(d)) {message("No parse data!"); next; }
     num<-unique(c(which(ln0 %in% linesFilter(d)),which(ln0>length(lines))))
     if(length(num)!=0){ln0<-ln0[-num];fn0<-fn0[-num];value<-value[-num]}
     fullvalue<-numeric(length(lines))
