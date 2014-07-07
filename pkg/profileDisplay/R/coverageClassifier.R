@@ -1,5 +1,6 @@
 coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){ 
-  setwd(dir)
+  old.dir<-setwd(dir)
+  on.exit(setwd(old.dir))
   src<-listRfiles(prof, dir)
   if (is.character(prof))
     prof<-summaryRprof(prof, lines="show")
