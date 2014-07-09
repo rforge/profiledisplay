@@ -40,5 +40,5 @@ Alexander Tsang and Duncan Murdoch
   data(lineSummary, package = "profileDisplay")
   
   # Display it
-  browseURL(summaryHTML(lineSummary))
+  browseURL(summaryToHTML(lineSummary))
 }
