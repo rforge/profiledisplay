@@ -1,4 +1,4 @@
-legend <- function(name,data,classes,...){
+legend <- function(name, data, classes, ...){
   
   files <- data$files
   titles <- data$titles
