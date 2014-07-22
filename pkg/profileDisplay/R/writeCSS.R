@@ -1,6 +1,6 @@
 writeCSS <- function(classes,
                       filename,
-                      bg = c("white" ,"#FED98E"), 
+                      bg = c("#FF3030","white"), 
 		      fg = c("black", "black"),
 		      border.bg = "#FED98E") {
     n <- length(classes)

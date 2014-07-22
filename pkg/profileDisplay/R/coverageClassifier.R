@@ -73,6 +73,6 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
                               interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
-  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=prof),class="lineClassifier")
+  result<-structure(list(files=files, titles=titles, info=info, summaryRprof=prof),class="lineClassifier", profileType="Executed")
   return(result)
 }

@@ -33,33 +33,31 @@ expandGroups <- function(gp, lines) {
   gp
 }
 
-selfprofileClassifier <- function(prof = "Rprof.out",
-				  dir = ".",
+selfprofileClassifier <- function(prof = "Rprof.out", dir = ".",
                                   src = listRfiles(prof, dir),
-				  breaks = 6,
-                                  colourdata = colouring()$colourdata) {  
+                                  colourdata = colouring()$colourdata
+                                  ) {  
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
   force(src)
-  profileClassifier("Self", prof, dir, src, breaks, colourdata)
+  profileClassifier("Self", prof, dir, src, colourdata)
 }
 
 totalprofileClassifier <- function(prof = "Rprof.out",
 				  dir = ".",
                                   src = listRfiles(prof, dir),
-				  breaks = 6,
                                   colourdata = colouring()$colourdata) {  
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
   force(src)
-  profileClassifier("Total", prof, dir, src, breaks, colourdata)
+  profileClassifier("Total", prof, dir, src, colourdata)
 }
 
 profileClassifier <- function(profileType=c("Self","Total"), 
                               prof = "Rprof.out", 
 			      dir = ".", 
 			      src = listRfiles(prof, dir), 
-			      breaks = 6, colourdata = colouring()$colourdata) {
+            colourdata = colouring()$colourdata) {
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
     
@@ -84,8 +82,15 @@ profileClassifier <- function(profileType=c("Self","Total"),
   ln <- as.numeric(sub(".*#","",loc))
   
   total.time <- numeric(length(names))
-  for (i in seq_along(names)){
-    total.time[i] <- sum(times$self.time[fn == names[i]])
+  if (profileType=="self"){
+    for (i in seq_along(names)){
+      total.time[i] <- sum(times$self.pct[fn == names[i]])
+    }
+  }
+  else{
+    for (i in seq_along(names)){
+      total.time[i] <- sum(times$total.pct[fn == names[i]])
+    }
   }
   oldorder <- order(total.time, decreasing=TRUE)
   files <- list()
@@ -106,7 +111,9 @@ profileClassifier <- function(profileType=c("Self","Total"),
     fullvalue <- numeric(n)
     fullvalue[ln1] <- value
     
-    gp <- cut(fullvalue, breaks, labels = FALSE)
+    #choose breaks
+   
+    gp <-(11-cut(fullvalue, breaks=c(0,seq(1,100,10)), labels = FALSE,include.lowest=TRUE))
     
     # The group setting will be wrong for the zeros, because they'll include
     # multiline statements.  So parse the code and expand the grouping
@@ -120,6 +127,6 @@ profileClassifier <- function(profileType=c("Self","Total"),
 			       interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
   result <- structure(list(files = files, titles = titles, info = info, summaryRprof = prof),
-                      class = "lineClassifier")
+                      class = "lineClassifier", profileType = profileType  )
   return(result)
 }

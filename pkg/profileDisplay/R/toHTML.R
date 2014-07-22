@@ -15,7 +15,7 @@ htmlify <- function (x)
     x
 }
 
-toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
+toHTML.lineClassifier <- function(x, profileType=attr(x, "profileType"), htmldir = tempdir(), ...) {
   stopifnot("lineClassifier" %in% class(x))
   files <- x$files
   titles <- x$titles
@@ -63,6 +63,7 @@ toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
       lines <- files[[i]]$lines
       styles <- files[[i]]$styles
       if(profileType=="Executed") table<-maketable(styles)
+      else table<-maketableSelf(styles)
       classes <- paste0("gp", styles)
       allclasses <- unique(c(allclasses, styles))
       linenum <- files[[i]]$line1
@@ -87,7 +88,7 @@ toHTML.lineClassifier <- function(x, profileType, htmldir = tempdir(), ...) {
   if(profileType=="Executed"){
     writeCSS(paste0("gp", sort(allclasses))[1:4], file.path(htmldir, "profileDisplay.css"), bg=c("#FF7F7F","#FFBF7F","yellow","#7FFF7F"))
   }else{
-    writeCSS(paste0("gp", sort(allclasses)), file.path(htmldir, "profileDisplay.css"), ...)
+    writeCSS(paste0("gp", c(0:10))[1:11], file.path(htmldir, "profileDisplay.css"), ...)
   }
   file.path(htmldir, htmlfilenames[1])
 }

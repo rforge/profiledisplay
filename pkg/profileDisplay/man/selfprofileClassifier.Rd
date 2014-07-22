@@ -53,5 +53,6 @@ Alexander Tsang and Duncan Murdoch
 }
 \examples{
 data(lineSummary)
-selfprofileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
+result <- selfprofileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
+print.lineClassifier(result)
 }

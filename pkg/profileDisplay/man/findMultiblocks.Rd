@@ -26,7 +26,7 @@ The file path of the codes including the file name and directory.
 \value{
 A list with three components for the code file will be returned.
 \item{uline}{The subset from parse data indicating the location and range of multilines blocks.}
-\item{A character vector indicating the classification of each lines, type 1,2,3 and 4.}
+\item{class}{A character vector indicating the classification of each lines, type 1,2,3 and 4.}
 \item{ln1}{The executed line numbers showing in profile data.}
 }
 
