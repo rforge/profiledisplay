@@ -57,5 +57,5 @@ we can classify the lines according to run-time on each.
 ## Displaying the lines
 
 ```{r}
-profileHTML("scriptRprof.out")
+#profileHTML("scriptRprof.out")
 ```

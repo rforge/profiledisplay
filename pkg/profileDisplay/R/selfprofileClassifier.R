@@ -35,29 +35,32 @@ expandGroups <- function(gp, lines) {
 
 selfprofileClassifier <- function(prof = "Rprof.out", dir = ".",
                                   src = listRfiles(prof, dir),
-                                  colourdata = colouring()$colourdata
-                                  ) {  
+                                  colourdata = colouring()$colourdata,
+                                  breaks = 10
+) {  
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
   force(src)
-  profileClassifier("Self", prof, dir, src, colourdata)
+  profileClassifier("Self", prof, dir, src, colourdata, breaks)
 }
 
 totalprofileClassifier <- function(prof = "Rprof.out",
-				  dir = ".",
-                                  src = listRfiles(prof, dir),
-                                  colourdata = colouring()$colourdata) {  
+                                   dir = ".",
+                                   src = listRfiles(prof, dir),
+                                   colourdata = colouring()$colourdata,
+                                   breaks = 10) {  
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
   force(src)
-  profileClassifier("Total", prof, dir, src, colourdata)
+  profileClassifier("Total", prof, dir, src, colourdata, breaks)
 }
 
-profileClassifier <- function(profileType=c("Self","Total"), 
+profileClassifier <- function(profileType = c("Self","Total"),  
                               prof = "Rprof.out", 
 			      dir = ".", 
 			      src = listRfiles(prof, dir), 
-            colourdata = colouring()$colourdata) {
+            colourdata = colouring()$colourdata, 
+            breaks = 10 ) {
   if (is.character(prof))
     prof <- summaryRprof(prof, lines="show")
     
@@ -112,21 +115,21 @@ profileClassifier <- function(profileType=c("Self","Total"),
     fullvalue[ln1] <- value
     
     #choose breaks
-   
-    gp <-(11-cut(fullvalue, breaks=c(0,seq(1,100,10)), labels = FALSE,include.lowest=TRUE))
+    
+    breakPoints<-c(0,seq(0.0001,100.0001, length.out = breaks+1))
+    gp <-(breaks+2-cut(fullvalue, breakPoints, labels = FALSE, include.lowest=TRUE, right=FALSE))
     
     # The group setting will be wrong for the zeros, because they'll include
     # multiline statements.  So parse the code and expand the grouping
     
     gp <- expandGroups(gp, lines)
-    
     data <- data.frame(line1 = seq_along(lines), times = fullvalue, styles = gp, lines = lines)
     files[[names[l]]] <- data
     titles[names[l]] <- paste0(profileType, " time profile data for ", names[l])
     info[names[l]] <- sprintf("Sampling interval:  %.2f  This file represents %.1f%% of total %.2fs execution time.", 
-			       interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
+                              interval, 100*total.time[l]/total.sampling.time, total.sampling.time)
   }
   result <- structure(list(files = files, titles = titles, info = info, summaryRprof = prof),
-                      class = "lineClassifier", profileType = profileType  )
+                      class = "lineClassifier", profileType = profileType, ngp = breaks+1, breakPoints = breakPoints)
   return(result)
 }

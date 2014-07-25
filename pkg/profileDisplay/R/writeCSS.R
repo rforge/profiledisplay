@@ -4,8 +4,8 @@ writeCSS <- function(classes,
 		      fg = c("black", "black"),
 		      border.bg = "#FED98E") {
     n <- length(classes)
-    bg <- rgb(colorRamp(bg, space = "Lab")(seq(0, 1, len=n)), maxColorValue=255)
-    fg <- rgb(colorRamp(fg, space = "Lab")(seq(0, 1, len=n)), maxColorValue=255)
+    bg <- rgb(colorRamp(bg, space = "Lab")(c(seq(0, 0.9, len=n-1),1)), maxColorValue=255)
+    fg <- rgb(colorRamp(fg, space = "Lab")(c(seq(0, 0.9, len=n-1),1)), maxColorValue=255)
     
     con <- file(filename, "wt")
     on.exit(close(con))

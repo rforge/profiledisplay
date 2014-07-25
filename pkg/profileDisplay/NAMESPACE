@@ -2,5 +2,5 @@ export(ascendant,blocklines,blocksFilter,classrule1,classrule2,colexp_FOR,
        colexp_IF,colorexpand,Dlevelclass,findchilds,findMultiblocks,getLines,listRfiles,
        missingseq,print.lineClassifier,remainclassify,Slevelclass,SRBidentify,summaryToHTML,
        descendant,coverageClassifier,createEx,profileClassifier,linesFilter,toHTML.lineClassifier,
-       selfprofileClassifier,totalprofileClassifier
+       selfprofileClassifier,totalprofileClassifier,MTS,profiler
        )
