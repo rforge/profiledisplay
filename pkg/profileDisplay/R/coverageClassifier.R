@@ -54,6 +54,7 @@ coverageClassifier<-function(profileType="Executed",prof="Rprof.out",dir="."){
           }
         }
       }
+      class<-classfirstline(class,uline[uline$level==min(uline$level),],d,ln1)
       uncolored<-remainclassify(uline,ln1,first=1,last=length(class))
       class[1:length(class)%in%uncolored&1:length(class)<max(ln1)]<-"2"
       class[1:length(class)%in%uncolored&1:length(class)>max(ln1)]<-"3"
