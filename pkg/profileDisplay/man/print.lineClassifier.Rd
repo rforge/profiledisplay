@@ -7,7 +7,7 @@ Print method for lineClassifier objects
 This prints a lineClassifier objects.
 }
 \usage{
-\method{print}{lineClassifier}(x, ...)
+\method{print}{lineClassifier}(x, detail = FALSE, ...)
 }
 \arguments{
   \item{x}{
@@ -16,7 +16,9 @@ a line classifier object.
   \item{detail}{
 logical; if TRUE, the detail of summaryRprof data will be printed.
 }
-
+  \item{...}{
+other parameters to pass to \code{print}. 
+}
 }
 
 \author{
@@ -25,6 +27,6 @@ logical; if TRUE, the detail of summaryRprof data will be printed.
 
 \examples{
 data(lineSummary)
-result<-selfprofileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
+result<-profileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
 print.lineClassifier(result)
 }

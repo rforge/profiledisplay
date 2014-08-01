@@ -33,6 +33,9 @@ Duncan Murdoch and Alexander Tsang
 }
 \examples{
 data(lineSummary)
-lines <- selfprofileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
-browseURL( toHTML(lines) )
+lines <- profileClassifier(lineSummary, dir = system.file("text", package = "profileDisplay"))
+browseURL( toHTML(lines, htmldir = tempfile()) )
+
+lines <- profileClassifier(profileType = "Total", lineSummary, dir = system.file("text", package = "profileDisplay"))
+browseURL( toHTML(lines, htmldir = tempfile()) )
 }

@@ -20,16 +20,21 @@ toHTML.lineClassifier <- function(x, profileType=attr(x, "profileType"), htmldir
   files <- x$files
   titles <- x$titles
   info <- x$info
+  fileStyles <- attr(x, "fileStyles")
   filenames <- names(files)
   doSummary <- !is.null(x$summaryRprof)
   if (doSummary) {
     filenames <- c(filenames, "summaryRprof")
     info <- c(info, "")
     titles <- c(titles, "Raw summaryRprof data")
+    fileStyles <- c(fileStyles, 0)
   }
   htmlfilenames <- paste0(filenames, ".html")
   
-  allclasses <- c()    
+  allclasses <- c()
+  if(!file.exists(htmldir))
+    dir.create(htmldir)
+  
   for (i in seq_along(filenames)) {
     name <- filenames[i]
     htmlcon <- file( file.path(htmldir, htmlfilenames[i]), "wt")
@@ -47,9 +52,9 @@ toHTML.lineClassifier <- function(x, profileType=attr(x, "profileType"), htmldir
         '<div id="TOC" style="width:100px; float:left;">',
         '<br>',
         '<b>Files</b><br>',
-        paste0('<a href="', htmlfilenames, '">', filenames, '</a><br>'),
+        paste0('<a class=\ gp', fileStyles, ' href="', htmlfilenames, '">', filenames, '</a><br>'),
         '</div>',
-        '<div id="listing">',
+        '<div id="listing" style="width:80%; width:calc(100% - 120px)">',
         '<br>',
         info[i],
         if (!doSummary || i < length(filenames))
@@ -66,10 +71,10 @@ toHTML.lineClassifier <- function(x, profileType=attr(x, "profileType"), htmldir
 
       else{
         label <- styleLabel(x)
-        table <- MTS(styles,attr(x, "ngp"),label)
+        table <- maketableLine(styles,attr(x, "ngp"),label)
       } 
       classes <- paste0("gp", styles)
-      allclasses <- unique(c(allclasses, styles))
+      allclasses <- unique(c(allclasses, styles))      
       linenum <- files[[i]]$line1
       linenum <- sprintf("%0*d  ", floor(log10(max(linenum))) + 1, linenum)
       regexp <- "(^\\s*)(\\S*.*\\S*)(\\s*$)"

@@ -1,4 +1,4 @@
-MTS <- function(styles, n, label){
+maketableLine <- function(styles, n, label){
   measure <- integer()
   bp <- seq(0,100,n)
   Tcolor <- character()  
@@ -8,14 +8,11 @@ MTS <- function(styles, n, label){
   for(i in 1:n){
     measure[i] <- sum(styles==i)
     Tcolor <- paste0(Tcolor,
-                     '<TD class=\'',paste("gp",i,sep=""), '\'> </TD>',
-                     sep="")
+                     '<TD class=\'gp', i, '\'> </TD>')
     Tlabel <- paste0(Tlabel,
-                     '<td>', label[i], '</td>',
-                     sep="")
+                     '<td>', label[i], '</td>')
     Tmeasure <- paste0(Tmeasure,
-                       '<td>', measure[i], '</td>',
-                       sep="")
+                       '<td>', measure[i], '</td>')
   }
     
   Tcolor<- paste0('<tr>
@@ -33,7 +30,7 @@ MTS <- function(styles, n, label){
   
   table<-paste0('\n<a name="Legend"></a><h1><i>Legend</i></h1><div><table border="2" style="background-color:white;">',          
                 Tcolor,Tlabel,Tmeasure,                
-                '</table>', sep='') 
+                '</table>') 
   
   return(table)
 }
