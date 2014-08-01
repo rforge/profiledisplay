@@ -1,5 +1,6 @@
 classfirstline<-function(class,uline,d,ln1){
   uline<-uline[uline$con==FALSE,]
+  if(nrow(uline)==0) return(class)
   for(i in 1:nrow(uline)){
     block<-d[d$id %in% descendant(data=d,id=uline[i,"id"]),]
     lines<-blocklines(block)
